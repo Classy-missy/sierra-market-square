@@ -44,13 +44,42 @@
       "type": "string",
       "title": "Business Type",
       "enum": [
-        "Agro-processing",
-        "Retail",
-        "Logistics",
-        "Farming",
-        "Catering"
+        "SME",
+        "SOHO",
+        "MICRO",
+        "MACRO"
       ],
-      "default": "Retail"
+      "default": "SME"
+    },
+    "sector": {
+      "type": "string",
+      "title": "Sector",
+      "enum": [
+        "Fashion & Textiles",
+        "Food & Beverages",
+        "Beauty & Wellness",
+        "Agriculture & Farming",
+        "Crafts & Artisanary",
+        "Technology & Services",
+        "Education & Training",
+        "Health & Medical",
+        "Retail & Trading",
+        "Construction & Manufacturing",
+        "Other"
+      ],
+      "default": "Retail & Trading"
+    },
+    "region": {
+      "type": "string",
+      "title": "Region",
+      "enum": [
+        "Eastern Province",
+        "Northern Province",
+        "Southern Province",
+        "North-Western Province",
+        "Western Area"
+      ],
+      "default": "Western Area"
     }
   },
   "required": [

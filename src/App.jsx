@@ -13,6 +13,7 @@ import Vendors from "@/pages/Vendors";
 import Mentors from "@/pages/Mentors";
 import RegisterCustomer from "@/pages/RegisterCustomer";
 import RegisterMentor from "@/pages/RegisterMentor";
+import RegisterVendor from "@/pages/RegisterVendor";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminRoute from "@/components/AdminRoute";
 import Login from "@/pages/Login";
@@ -54,6 +55,7 @@ const AuthenticatedApp = () => {
         <Route path="/mentors" element={<Mentors />} />
         <Route path="/register-customer" element={<RegisterCustomer />} />
         <Route path="/register-mentor" element={<RegisterMentor />} />
+        <Route path="/register-vendor" element={<RegisterVendor />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

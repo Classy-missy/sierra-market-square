@@ -4,13 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Upload, Loader2, Check, Store } from "lucide-react";
-
-const businessTypes = ["Agro-processing", "Retail", "Logistics", "Farming", "Catering"];
+import { BUSINESS_TYPES, SECTORS, REGIONS } from "@/lib/constants";
 
 export default function VendorForm({ onCreated }) {
   const [form, setForm] = useState({
     business_name: "",
-    business_type: "Retail",
+    business_type: "SME",
+    sector: "Retail & Trading",
+    region: "Western Area",
     description: "",
     location: "",
     phone: "",
@@ -53,7 +54,9 @@ export default function VendorForm({ onCreated }) {
       setSuccess(true);
       setForm({
         business_name: "",
-        business_type: "Retail",
+        business_type: "SME",
+        sector: "Retail & Trading",
+        region: "Western Area",
         description: "",
         location: "",
         phone: "",
@@ -71,6 +74,7 @@ export default function VendorForm({ onCreated }) {
   };
 
   const inputClass = "h-11 border-[#E8E2D5]";
+  const selectClass = "w-full h-11 px-3 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612]";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -90,12 +94,23 @@ export default function VendorForm({ onCreated }) {
         </div>
         <div className="space-y-2">
           <Label className="text-[#1A1612]">Business Type *</Label>
-          <select
-            value={form.business_type}
-            onChange={(e) => handleChange("business_type", e.target.value)}
-            className="w-full h-11 px-3 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612]"
-          >
-            {businessTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+          <select value={form.business_type} onChange={(e) => handleChange("business_type", e.target.value)} className={selectClass}>
+            {BUSINESS_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-[#1A1612]">Sector</Label>
+          <select value={form.sector} onChange={(e) => handleChange("sector", e.target.value)} className={selectClass}>
+            {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div className="space-y-2">
+          <Label className="text-[#1A1612]">Region</Label>
+          <select value={form.region} onChange={(e) => handleChange("region", e.target.value)} className={selectClass}>
+            {REGIONS.map((r) => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
       </div>

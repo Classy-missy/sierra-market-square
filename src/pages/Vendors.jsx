@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import VendorCard from "@/components/VendorCard";
 
-const businessTypes = ["All", "Agro-processing", "Retail", "Logistics", "Farming", "Catering"];
+const businessTypes = ["All", "SME", "SOHO", "MICRO", "MACRO"];
 
 export default function Vendors() {
   const [vendors, setVendors] = useState([]);

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ProductCard({ product }) {
   return (
-    <div className="group relative bg-[#F9F7F2] rounded-lg overflow-hidden border border-[#E8E2D5] transition-all hover:shadow-[0_8px_30px_rgba(217,93,57,0.12)]">
+    <div className="group relative bg-[#F9F7F2] rounded-lg overflow-hidden border border-[#E8E2D5] transition-all hover:shadow-[0_8px_30px_rgba(0,160,227,0.12)]">
       <div className="relative overflow-hidden">
         <img
           src={product.image || "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/904b5eb06_generated_313fffab.png"}

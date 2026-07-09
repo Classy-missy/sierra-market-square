@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Upload, Loader2, Check, Package } from "lucide-react";
-
-const productCategories = ["Tubers", "Vegetables", "Grains", "Fruits", "Spices", "Oils"];
-const businessTypes = ["Agro-processing", "Retail", "Logistics", "Farming", "Catering"];
+import { BUSINESS_TYPES, SECTORS, REGIONS, PRODUCT_CATEGORIES } from "@/lib/constants";
 
 export default function ProductForm({ onCreated }) {
   const [vendors, setVendors] = useState([]);
@@ -17,7 +15,9 @@ export default function ProductForm({ onCreated }) {
     unit: "per bag",
     description: "",
     vendor_name: "",
-    business_type: "Retail",
+    business_type: "SME",
+    sector: "Retail & Trading",
+    region: "Western Area",
     image: "",
   });
   const [uploading, setUploading] = useState(false);
@@ -49,7 +49,11 @@ export default function ProductForm({ onCreated }) {
   const handleVendorChange = (vendorName) => {
     const vendor = vendors.find((v) => v.business_name === vendorName);
     handleChange("vendor_name", vendorName);
-    if (vendor) handleChange("business_type", vendor.business_type);
+    if (vendor) {
+      handleChange("business_type", vendor.business_type);
+      handleChange("sector", vendor.sector);
+      handleChange("region", vendor.region);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -70,7 +74,9 @@ export default function ProductForm({ onCreated }) {
         unit: "per bag",
         description: "",
         vendor_name: "",
-        business_type: "Retail",
+        business_type: "SME",
+        sector: "Retail & Trading",
+        region: "Western Area",
         image: "",
       });
       onCreated?.();
@@ -83,6 +89,7 @@ export default function ProductForm({ onCreated }) {
   };
 
   const inputClass = "h-11 border-[#E8E2D5]";
+  const selectClass = "w-full h-11 px-3 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612]";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -102,12 +109,8 @@ export default function ProductForm({ onCreated }) {
         </div>
         <div className="space-y-2">
           <Label className="text-[#1A1612]">Product Category *</Label>
-          <select
-            value={form.category}
-            onChange={(e) => handleChange("category", e.target.value)}
-            className="w-full h-11 px-3 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612]"
-          >
-            {productCategories.map((c) => <option key={c} value={c}>{c}</option>)}
+          <select value={form.category} onChange={(e) => handleChange("category", e.target.value)} className={selectClass}>
+            {PRODUCT_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
       </div>
@@ -141,23 +144,30 @@ export default function ProductForm({ onCreated }) {
         </div>
         <div className="space-y-2">
           <Label className="text-[#1A1612]">Business Type</Label>
-          <select
-            value={form.business_type}
-            onChange={(e) => handleChange("business_type", e.target.value)}
-            className="w-full h-11 px-3 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612]"
-          >
-            {businessTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+          <select value={form.business_type} onChange={(e) => handleChange("business_type", e.target.value)} className={selectClass}>
+            {BUSINESS_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-[#1A1612]">Sector</Label>
+          <select value={form.sector} onChange={(e) => handleChange("sector", e.target.value)} className={selectClass}>
+            {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div className="space-y-2">
+          <Label className="text-[#1A1612]">Region</Label>
+          <select value={form.region} onChange={(e) => handleChange("region", e.target.value)} className={selectClass}>
+            {REGIONS.map((r) => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
       </div>
 
       <div className="space-y-2">
         <Label className="text-[#1A1612]">Vendor</Label>
-        <select
-          value={form.vendor_name}
-          onChange={(e) => handleVendorChange(e.target.value)}
-          className="w-full h-11 px-3 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612]"
-        >
+        <select value={form.vendor_name} onChange={(e) => handleVendorChange(e.target.value)} className={selectClass}>
           <option value="">— Select vendor (optional) —</option>
           {vendors.map((v) => <option key={v.id} value={v.business_name}>{v.business_name}</option>)}
         </select>

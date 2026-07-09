@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, User, Heart, Globe, Shield } from "lucide-react";
+import { Menu, X, ChevronDown, User, Heart, Globe, Shield, Store } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 
 export default function Navbar() {
@@ -84,29 +84,37 @@ export default function Navbar() {
             </button>
             {registerOpen && (
               <div className="absolute top-full right-0 pt-2 z-50">
-                <div className="bg-[#F9F7F2] border border-[#E8E2D5] rounded-lg shadow-xl w-80 overflow-hidden">
-                  <div className="grid grid-cols-2">
-                    <Link
-                      to="/register-customer"
-                      className="p-4 hover:bg-[#F0EBE0] transition-colors border-r border-[#E8E2D5]"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <User className="w-5 h-5 text-[#00A0E3]" />
-                        <span className="font-semibold text-sm text-[#1A1612]">Join as Customer</span>
-                      </div>
+                <div className="bg-[#F9F7F2] border border-[#E8E2D5] rounded-lg shadow-xl w-72 overflow-hidden">
+                  <Link
+                    to="/register-customer"
+                    className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors border-b border-[#E8E2D5]"
+                  >
+                    <User className="w-5 h-5 text-[#00A0E3] flex-shrink-0" />
+                    <div>
+                      <div className="font-semibold text-sm text-[#1A1612]">Join as Customer</div>
                       <p className="text-xs text-[#1A1612]/70">Shop fresh produce and support local women</p>
-                    </Link>
-                    <Link
-                      to="/register-mentor"
-                      className="p-4 hover:bg-[#F0EBE0] transition-colors"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <Heart className="w-5 h-5 text-[#2D4F1E]" />
-                        <span className="font-semibold text-sm text-[#1A1612]">Join as Mentor</span>
-                      </div>
+                    </div>
+                  </Link>
+                  <Link
+                    to="/register-vendor"
+                    className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors border-b border-[#E8E2D5]"
+                  >
+                    <Store className="w-5 h-5 text-[#00A0E3] flex-shrink-0" />
+                    <div>
+                      <div className="font-semibold text-sm text-[#1A1612]">Join as Vendor</div>
+                      <p className="text-xs text-[#1A1612]/70">List your business and reach new customers</p>
+                    </div>
+                  </Link>
+                  <Link
+                    to="/register-mentor"
+                    className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors"
+                  >
+                    <Heart className="w-5 h-5 text-[#2D4F1E] flex-shrink-0" />
+                    <div>
+                      <div className="font-semibold text-sm text-[#1A1612]">Join as Mentor</div>
                       <p className="text-xs text-[#1A1612]/70">Share your expertise and empower others</p>
-                    </Link>
-                  </div>
+                    </div>
+                  </Link>
                 </div>
               </div>
             )}
@@ -151,6 +159,13 @@ export default function Navbar() {
               className="block py-1 text-sm font-medium text-[#1A1612]"
             >
               Join as Customer
+            </Link>
+            <Link
+              to="/register-vendor"
+              onClick={() => setMobileOpen(false)}
+              className="block py-1 text-sm font-medium text-[#1A1612]"
+            >
+              Join as Vendor
             </Link>
             <Link
               to="/register-mentor"

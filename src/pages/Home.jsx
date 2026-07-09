@@ -37,6 +37,8 @@ export default function Home() {
     if (!activeFilter) return true;
     if (activeFilter.type === "category") return p.category === activeFilter.value;
     if (activeFilter.type === "business") return p.business_type === activeFilter.value;
+    if (activeFilter.type === "sector") return p.sector === activeFilter.value;
+    if (activeFilter.type === "region") return p.region === activeFilter.value;
     return true;
   });
 
@@ -57,7 +59,7 @@ export default function Home() {
             </p>
             <a
               href="#marketplace"
-              className="inline-block bg-[#00A0E3] text-[#F9F7F2] font-medium px-8 py-3 rounded-md hover:bg-[#C04E2E] transition-colors"
+              className="inline-block bg-[#00A0E3] text-[#F9F7F2] font-medium px-8 py-3 rounded-md hover:bg-[#0086C0] transition-colors"
             >
               Explore the Market
             </a>
