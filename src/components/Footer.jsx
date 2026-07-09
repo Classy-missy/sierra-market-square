@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <h3 className="font-heading text-xl font-bold mb-3">
-              Sierra Market <span className="text-[#D95D39]">Glow</span>
+              Sierra Market <span className="text-[#00A0E3]">Glow</span>
             </h3>
             <p className="text-sm text-[#F9F7F2]/70 mb-4 leading-relaxed">
               A digital ecosystem bridging the earth's bounty and global empowerment for female
@@ -36,10 +36,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-sm mb-4 uppercase tracking-wide">Our Farmers</h4>
             <ul className="space-y-2 text-sm text-[#F9F7F2]/70">
-              <li><Link to="/vendors" className="hover:text-[#D95D39] transition-colors">Vendor Directory</Link></li>
-              <li><Link to="/" className="hover:text-[#D95D39] transition-colors">Browse Products</Link></li>
-              <li><Link to="/vendors" className="hover:text-[#D95D39] transition-colors">Business Types</Link></li>
-              <li><Link to="/register-customer" className="hover:text-[#D95D39] transition-colors">Sustainability Impact</Link></li>
+              <li><Link to="/vendors" className="hover:text-[#00A0E3] transition-colors">Vendor Directory</Link></li>
+              <li><Link to="/" className="hover:text-[#00A0E3] transition-colors">Browse Products</Link></li>
+              <li><Link to="/vendors" className="hover:text-[#00A0E3] transition-colors">Business Types</Link></li>
+              <li><Link to="/register-customer" className="hover:text-[#00A0E3] transition-colors">Sustainability Impact</Link></li>
             </ul>
           </div>
 
@@ -47,10 +47,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-sm mb-4 uppercase tracking-wide">Mentorship</h4>
             <ul className="space-y-2 text-sm text-[#F9F7F2]/70">
-              <li><Link to="/mentors" className="hover:text-[#D95D39] transition-colors">Mentor Directory</Link></li>
-              <li><Link to="/register-mentor" className="hover:text-[#D95D39] transition-colors">Become a Mentor</Link></li>
-              <li><Link to="/vendors" className="hover:text-[#D95D39] transition-colors">Vendor Support</Link></li>
-              <li><Link to="/register-customer" className="hover:text-[#D95D39] transition-colors">Community</Link></li>
+              <li><Link to="/mentors" className="hover:text-[#00A0E3] transition-colors">Mentor Directory</Link></li>
+              <li><Link to="/register-mentor" className="hover:text-[#00A0E3] transition-colors">Become a Mentor</Link></li>
+              <li><Link to="/vendors" className="hover:text-[#00A0E3] transition-colors">Vendor Support</Link></li>
+              <li><Link to="/register-customer" className="hover:text-[#00A0E3] transition-colors">Community</Link></li>
             </ul>
           </div>
 
@@ -59,13 +59,13 @@ export default function Footer() {
             <h4 className="font-semibold text-sm mb-4 uppercase tracking-wide">Get in Touch</h4>
             <ul className="space-y-3 text-sm text-[#F9F7F2]/70">
               <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#D95D39]" /> hello@sierramarketglow.sl
+                <Mail className="w-4 h-4 text-[#00A0E3]" /> hello@sierramarketglow.sl
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#D95D39]" /> +232 76 123 456
+                <Phone className="w-4 h-4 text-[#00A0E3]" /> +232 76 123 456
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#D95D39]" /> Freetown, Sierra Leone
+                <MapPin className="w-4 h-4 text-[#00A0E3]" /> Freetown, Sierra Leone
               </li>
             </ul>
           </div>

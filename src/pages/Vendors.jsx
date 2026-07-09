@@ -35,7 +35,7 @@ export default function Vendors() {
             onClick={() => setActiveType(type)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeType === type
-                ? "bg-[#D95D39] text-[#F9F7F2]"
+                ? "bg-[#00A0E3] text-[#F9F7F2]"
                 : "bg-[#F0EBE0] text-[#1A1612]/70 hover:bg-[#E8E2D5]"
             }`}
           >

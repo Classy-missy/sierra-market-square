@@ -2,7 +2,7 @@ import React from "react";
 
 const availabilityStyles = {
   Available: "bg-[#2D4F1E] text-[#F9F7F2]",
-  Limited: "bg-[#D95D39] text-[#F9F7F2]",
+  Limited: "bg-[#00A0E3] text-[#F9F7F2]",
   Full: "bg-[#1A1612] text-[#F9F7F2]/60",
 };
 

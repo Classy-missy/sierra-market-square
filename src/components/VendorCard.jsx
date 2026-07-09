@@ -9,7 +9,7 @@ export default function VendorCard({ vendor }) {
           alt={vendor.business_name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-3 left-3 bg-[#D95D39] text-[#F9F7F2] text-xs font-medium px-2 py-1 rounded">
+        <div className="absolute top-3 left-3 bg-[#00A0E3] text-[#F9F7F2] text-xs font-medium px-2 py-1 rounded">
           {vendor.business_type}
         </div>
       </div>

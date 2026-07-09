@@ -44,7 +44,7 @@ export default function Mentors() {
           <p className="text-[#1A1612]/50 mb-4">No mentors registered yet.</p>
           <Link
             to="/register-mentor"
-            className="inline-flex items-center gap-2 bg-[#D95D39] text-[#F9F7F2] px-6 py-3 rounded-md font-medium hover:bg-[#C04E2E] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#00A0E3] text-[#F9F7F2] px-6 py-3 rounded-md font-medium hover:bg-[#0086C0] transition-colors"
           >
             <Heart className="w-4 h-4" /> Become the First Mentor
           </Link>

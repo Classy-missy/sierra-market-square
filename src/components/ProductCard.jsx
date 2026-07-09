@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
           <p className="text-xs text-[#1A1612]/50 line-clamp-1 mb-2">{product.description}</p>
         )}
         <div className="flex items-center justify-between mt-2">
-          <span className="font-heading text-xl font-bold text-[#D95D39]">
+          <span className="font-heading text-xl font-bold text-[#00A0E3]">
             NLe {Number(product.price || 0).toFixed(2)}
           </span>
           <span className="text-xs text-[#1A1612]/50">{product.unit}</span>

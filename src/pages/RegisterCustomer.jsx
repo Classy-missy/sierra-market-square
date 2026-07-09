@@ -79,13 +79,13 @@ export default function RegisterCustomer() {
         <div className="max-w-md w-full">
           <Link to="/" className="flex items-center gap-1 justify-center mb-8">
             <span className="font-heading text-3xl font-bold text-[#1A1612]">Sierra Market</span>
-            <span className="font-heading text-3xl font-bold text-[#D95D39]">Glow</span>
+            <span className="font-heading text-3xl font-bold text-[#00A0E3]">Glow</span>
           </Link>
 
           <div className="bg-white border border-[#E8E2D5] rounded-lg p-8">
             <div className="text-center mb-6">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#F0EBE0] mb-4">
-                <Mail className="w-6 h-6 text-[#D95D39]" />
+                <Mail className="w-6 h-6 text-[#00A0E3]" />
               </div>
               <h1 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">Verify your email</h1>
               <p className="text-sm text-[#1A1612]/60">We sent a code to {email}</p>
@@ -109,7 +109,7 @@ export default function RegisterCustomer() {
             </div>
 
             <Button
-              className="w-full h-12 bg-[#D95D39] hover:bg-[#C04E2E] font-medium"
+              className="w-full h-12 bg-[#00A0E3] hover:bg-[#0086C0] font-medium"
               onClick={handleVerify}
               disabled={loading || otpCode.length < 6}
             >
@@ -122,7 +122,7 @@ export default function RegisterCustomer() {
 
             <p className="text-center text-sm text-[#1A1612]/60 mt-4">
               Didn't receive the code?{" "}
-              <button onClick={handleResend} className="text-[#D95D39] font-medium hover:underline">
+              <button onClick={handleResend} className="text-[#00A0E3] font-medium hover:underline">
                 Resend
               </button>
             </p>
@@ -137,13 +137,13 @@ export default function RegisterCustomer() {
       <div className="max-w-md w-full">
         <Link to="/" className="flex items-center gap-1 justify-center mb-8">
           <span className="font-heading text-3xl font-bold text-[#1A1612]">Sierra Market</span>
-          <span className="font-heading text-3xl font-bold text-[#D95D39]">Glow</span>
+          <span className="font-heading text-3xl font-bold text-[#00A0E3]">Glow</span>
         </Link>
 
         <div className="bg-white border border-[#E8E2D5] rounded-lg p-8">
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#F0EBE0] mb-4">
-              <ShoppingBag className="w-6 h-6 text-[#D95D39]" />
+              <ShoppingBag className="w-6 h-6 text-[#00A0E3]" />
             </div>
             <h1 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">Join as a Customer</h1>
             <p className="text-sm text-[#1A1612]/60">Start shopping fresh produce from local women entrepreneurs.</p>
@@ -246,7 +246,7 @@ export default function RegisterCustomer() {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full h-12 bg-[#D95D39] hover:bg-[#C04E2E] font-medium" disabled={loading}>
+            <Button type="submit" className="w-full h-12 bg-[#00A0E3] hover:bg-[#0086C0] font-medium" disabled={loading}>
               {loading ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Creating account...</>
               ) : (
@@ -259,7 +259,7 @@ export default function RegisterCustomer() {
 
           <p className="text-center text-sm text-[#1A1612]/60 mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#D95D39] font-medium hover:underline">
+            <Link to="/login" className="text-[#00A0E3] font-medium hover:underline">
               Log in
             </Link>
           </p>

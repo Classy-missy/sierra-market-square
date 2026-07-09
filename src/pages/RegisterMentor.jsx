@@ -139,13 +139,13 @@ export default function RegisterMentor() {
           <div className="max-w-md w-full">
             <Link to="/" className="flex items-center gap-1 mb-8">
               <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
-              <span className="font-heading text-2xl font-bold text-[#D95D39]">Glow</span>
+              <span className="font-heading text-2xl font-bold text-[#00A0E3]">Glow</span>
             </Link>
 
             <div className="bg-white border border-[#E8E2D5] rounded-lg p-8">
               <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#F0EBE0] mb-4">
-                  <Mail className="w-6 h-6 text-[#D95D39]" />
+                  <Mail className="w-6 h-6 text-[#00A0E3]" />
                 </div>
                 <h1 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">Verify your email</h1>
                 <p className="text-sm text-[#1A1612]/60">We sent a code to {email}</p>
@@ -169,7 +169,7 @@ export default function RegisterMentor() {
               </div>
 
               <Button
-                className="w-full h-12 bg-[#D95D39] hover:bg-[#C04E2E] font-medium"
+                className="w-full h-12 bg-[#00A0E3] hover:bg-[#0086C0] font-medium"
                 onClick={handleVerify}
                 disabled={loading || otpCode.length < 6}
               >
@@ -182,7 +182,7 @@ export default function RegisterMentor() {
 
               <p className="text-center text-sm text-[#1A1612]/60 mt-4">
                 Didn't receive the code?{" "}
-                <button onClick={handleResend} className="text-[#D95D39]! font-medium hover:underline">
+                <button onClick={handleResend} className="text-[#00A0E3]! font-medium hover:underline">
                   Resend
                 </button>
               </p>
@@ -214,7 +214,7 @@ export default function RegisterMentor() {
         <div className="max-w-md w-full">
           <Link to="/" className="flex items-center gap-1 mb-8">
             <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
-            <span className="font-heading text-2xl font-bold text-[#D95D39]">Glow</span>
+            <span className="font-heading text-2xl font-bold text-[#00A0E3]">Glow</span>
           </Link>
 
           <div className="mb-6">
@@ -234,7 +234,7 @@ export default function RegisterMentor() {
               <Label className="text-[#1A1612]">Portrait Image</Label>
               <div className="flex items-center gap-4">
                 {mentorImage ? (
-                  <img src={mentorImage} alt="Preview" className="w-16 h-16 rounded-full object-cover border-2 border-[#D95D39]" />
+                  <img src={mentorImage} alt="Preview" className="w-16 h-16 rounded-full object-cover border-2 border-[#00A0E3]" />
                 ) : (
                   <div className="w-16 h-16 rounded-full bg-[#F0EBE0] flex items-center justify-center">
                     <User className="w-6 h-6 text-[#1A1612]/40" />
@@ -287,7 +287,7 @@ export default function RegisterMentor() {
                       onClick={() => toggleExpertise(area)}
                       className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                         selected
-                          ? "bg-[#D95D39] text-[#F9F7F2]"
+                          ? "bg-[#00A0E3] text-[#F9F7F2]"
                           : "bg-[#F0EBE0] text-[#1A1612]/70 hover:bg-[#E8E2D5]"
                       }`}
                     >
@@ -306,7 +306,7 @@ export default function RegisterMentor() {
                 placeholder="Tell us about your experience and what you hope to share as a mentor..."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full px-3 py-2 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612] focus:outline-none focus:ring-2 focus:ring-[#D95D39]/30 focus:border-[#D95D39] resize-none"
+                className="w-full px-3 py-2 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612] focus:outline-none focus:ring-2 focus:ring-[#00A0E3]/30 focus:border-[#00A0E3] resize-none"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -325,7 +325,7 @@ export default function RegisterMentor() {
                 </div>
               </div>
             </div>
-            <Button type="submit" className="w-full h-12 bg-[#D95D39] hover:bg-[#C04E2E] font-medium" disabled={loading || uploadingImage}>
+            <Button type="submit" className="w-full h-12 bg-[#00A0E3] hover:bg-[#0086C0] font-medium" disabled={loading || uploadingImage}>
               {loading ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Creating account...</>
               ) : (
@@ -336,7 +336,7 @@ export default function RegisterMentor() {
 
           <p className="text-center text-sm text-[#1A1612]/60 mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#D95D39] font-medium hover:underline">
+            <Link to="/login" className="text-[#00A0E3] font-medium hover:underline">
               Log in
             </Link>
           </p>

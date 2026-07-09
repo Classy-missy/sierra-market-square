@@ -47,7 +47,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-1">
           <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
-          <span className="font-heading text-2xl font-bold text-[#D95D39]">Glow</span>
+          <span className="font-heading text-2xl font-bold text-[#00A0E3]">Glow</span>
         </Link>
 
         {/* Desktop nav */}
@@ -57,7 +57,7 @@ export default function Navbar() {
               key={item.path}
               to={item.path}
               className={`text-sm font-medium transition-colors ${
-                isActive(item.path) ? "text-[#D95D39]" : "text-[#1A1612] hover:text-[#D95D39]"
+                isActive(item.path) ? "text-[#00A0E3]" : "text-[#1A1612] hover:text-[#00A0E3]"
               }`}
             >
               {item.label}
@@ -67,7 +67,7 @@ export default function Navbar() {
           {isAdmin && (
             <Link
               to="/admin"
-              className="flex items-center gap-1 text-sm font-medium text-[#D95D39] hover:text-[#C04E2E]"
+              className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:text-[#0086C0]"
             >
               <Shield className="w-4 h-4" /> Admin
             </Link>
@@ -79,7 +79,7 @@ export default function Navbar() {
             onMouseEnter={() => setRegisterOpen(true)}
             onMouseLeave={() => setRegisterOpen(false)}
           >
-            <button className="flex items-center gap-1 text-sm font-medium text-[#1A1612] hover:text-[#D95D39]">
+            <button className="flex items-center gap-1 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3]">
               Register <ChevronDown className="w-4 h-4" />
             </button>
             {registerOpen && (
@@ -91,7 +91,7 @@ export default function Navbar() {
                       className="p-4 hover:bg-[#F0EBE0] transition-colors border-r border-[#E8E2D5]"
                     >
                       <div className="flex items-center gap-2 mb-2">
-                        <User className="w-5 h-5 text-[#D95D39]" />
+                        <User className="w-5 h-5 text-[#00A0E3]" />
                         <span className="font-semibold text-sm text-[#1A1612]">Join as Customer</span>
                       </div>
                       <p className="text-xs text-[#1A1612]/70">Shop fresh produce and support local women</p>
@@ -128,7 +128,7 @@ export default function Navbar() {
               to={item.path}
               onClick={() => setMobileOpen(false)}
               className={`block text-sm font-medium ${
-                isActive(item.path) ? "text-[#D95D39]" : "text-[#1A1612]"
+                isActive(item.path) ? "text-[#00A0E3]" : "text-[#1A1612]"
               }`}
             >
               {item.label}
@@ -138,7 +138,7 @@ export default function Navbar() {
             <Link
               to="/admin"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-1 py-1 text-sm font-medium text-[#D95D39]"
+              className="flex items-center gap-1 py-1 text-sm font-medium text-[#00A0E3]"
             >
               <Shield className="w-4 h-4" /> Admin Dashboard
             </Link>

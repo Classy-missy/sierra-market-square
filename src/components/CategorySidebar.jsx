@@ -17,7 +17,7 @@ export default function CategorySidebar({ activeFilter, onFilterChange }) {
                   onClick={() => onFilterChange({ type: "business", value: type })}
                   className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                     active
-                      ? "bg-[#D95D39] text-[#F9F7F2] font-medium"
+                      ? "bg-[#00A0E3] text-[#F9F7F2] font-medium"
                       : "text-[#1A1612]/70 hover:bg-[#F0EBE0]"
                   }`}
                 >
@@ -55,7 +55,7 @@ export default function CategorySidebar({ activeFilter, onFilterChange }) {
       {activeFilter && (
         <button
           onClick={() => onFilterChange(null)}
-          className="mt-4 w-full px-3 py-2 text-xs text-[#D95D39] hover:underline font-medium"
+          className="mt-4 w-full px-3 py-2 text-xs text-[#00A0E3] hover:underline font-medium"
         >
           ← Clear filters
         </button>

@@ -43,19 +43,19 @@ export default function AdminDashboard() {
       <div className="bg-[#1A1612] text-[#F9F7F2]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <LayoutDashboard className="w-5 h-5 text-[#D95D39]" />
+            <LayoutDashboard className="w-5 h-5 text-[#00A0E3]" />
             <div>
               <h1 className="font-heading text-lg font-bold">Admin Dashboard</h1>
               <p className="text-xs text-[#F9F7F2]/60">{user?.email || "Administrator"}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Link to="/" className="text-xs text-[#F9F7F2]/70 hover:text-[#D95D39] transition-colors">
+            <Link to="/" className="text-xs text-[#F9F7F2]/70 hover:text-[#00A0E3] transition-colors">
               View Site
             </Link>
             <button
               onClick={() => logout()}
-              className="flex items-center gap-1 text-xs text-[#F9F7F2]/70 hover:text-[#D95D39] transition-colors"
+              className="flex items-center gap-1 text-xs text-[#F9F7F2]/70 hover:text-[#00A0E3] transition-colors"
             >
               <LogOut className="w-4 h-4" /> Logout
             </button>
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
           <div className="bg-white border border-[#E8E2D5] rounded-lg p-5">
-            <Store className="w-6 h-6 text-[#D95D39] mb-2" />
+            <Store className="w-6 h-6 text-[#00A0E3] mb-2" />
             <p className="font-heading text-2xl font-bold text-[#1A1612]">{loading ? "—" : vendors.length}</p>
             <p className="text-xs text-[#1A1612]/60">Total Vendors</p>
           </div>
@@ -77,7 +77,7 @@ export default function AdminDashboard() {
             <p className="text-xs text-[#1A1612]/60">Total Products</p>
           </div>
           <div className="bg-white border border-[#E8E2D5] rounded-lg p-5 hidden sm:block">
-            <LayoutDashboard className="w-6 h-6 text-[#D95D39] mb-2" />
+            <LayoutDashboard className="w-6 h-6 text-[#00A0E3] mb-2" />
             <p className="font-heading text-2xl font-bold text-[#1A1612]">Admin</p>
             <p className="text-xs text-[#1A1612]/60">Full Access</p>
           </div>
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
                     onClick={() => setTab(t.id)}
                     className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
                       tab === t.id
-                        ? "bg-[#D95D39] text-[#F9F7F2]"
+                        ? "bg-[#00A0E3] text-[#F9F7F2]"
                         : "bg-white text-[#1A1612]/70 border border-[#E8E2D5] hover:bg-[#F0EBE0]"
                     }`}
                   >
@@ -154,7 +154,7 @@ export default function AdminDashboard() {
                       <h3 className="font-semibold text-sm text-[#1A1612] truncate">{p.name}</h3>
                       <p className="text-xs text-[#1A1612]/60 truncate">{p.category} · {p.vendor_name || "No vendor"}</p>
                     </div>
-                    <span className="font-heading font-bold text-sm text-[#D95D39] flex-shrink-0">
+                    <span className="font-heading font-bold text-sm text-[#00A0E3] flex-shrink-0">
                       NLe {Number(p.price || 0).toFixed(2)}
                     </span>
                   </div>

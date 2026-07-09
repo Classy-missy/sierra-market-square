@@ -14,7 +14,7 @@ export default function AdminRoute() {
   if (isLoadingAuth || !authChecked) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#E8E2D5] border-t-[#D95D39] rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-[#E8E2D5] border-t-[#00A0E3] rounded-full animate-spin"></div>
       </div>
     );
   }

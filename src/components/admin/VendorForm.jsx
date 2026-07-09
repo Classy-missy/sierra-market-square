@@ -107,7 +107,7 @@ export default function VendorForm({ onCreated }) {
           onChange={(e) => handleChange("description", e.target.value)}
           rows={3}
           placeholder="Describe the business..."
-          className="w-full px-3 py-2 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612] focus:outline-none focus:ring-2 focus:ring-[#D95D39]/30 resize-none"
+          className="w-full px-3 py-2 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612] focus:outline-none focus:ring-2 focus:ring-[#00A0E3]/30 resize-none"
         />
       </div>
 
@@ -151,7 +151,7 @@ export default function VendorForm({ onCreated }) {
         </div>
       </div>
 
-      <Button type="submit" className="w-full h-11 bg-[#D95D39] hover:bg-[#C04E2E] font-medium" disabled={loading || uploading}>
+      <Button type="submit" className="w-full h-11 bg-[#00A0E3] hover:bg-[#0086C0] font-medium" disabled={loading || uploading}>
         {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Adding...</> : "Add Vendor"}
       </Button>
     </form>

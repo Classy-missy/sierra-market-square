@@ -49,7 +49,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-4 max-w-3xl">
             <h1 className="font-heading text-4xl md:text-6xl font-bold text-[#F9F7F2] mb-4">
-              From the Earth, <span className="text-[#D95D39]">Radiance</span>
+              From the Earth, <span className="text-[#00A0E3]">Radiance</span>
             </h1>
             <p className="text-base md:text-lg text-[#F9F7F2]/80 mb-6 leading-relaxed">
               Discover the bounty of Sierra Leone's female entrepreneurs — fresh produce,
@@ -57,7 +57,7 @@ export default function Home() {
             </p>
             <a
               href="#marketplace"
-              className="inline-block bg-[#D95D39] text-[#F9F7F2] font-medium px-8 py-3 rounded-md hover:bg-[#C04E2E] transition-colors"
+              className="inline-block bg-[#00A0E3] text-[#F9F7F2] font-medium px-8 py-3 rounded-md hover:bg-[#C04E2E] transition-colors"
             >
               Explore the Market
             </a>
