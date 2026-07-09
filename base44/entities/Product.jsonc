@@ -1,0 +1,61 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Product Category",
+      "enum": [
+        "Tubers",
+        "Vegetables",
+        "Grains",
+        "Fruits",
+        "Spices",
+        "Oils"
+      ],
+      "default": "Vegetables"
+    },
+    "price": {
+      "type": "number",
+      "title": "Price (NLe)"
+    },
+    "unit": {
+      "type": "string",
+      "title": "Unit",
+      "default": "per bag"
+    },
+    "image": {
+      "type": "string",
+      "title": "Product Image"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "business_type": {
+      "type": "string",
+      "title": "Business Type",
+      "enum": [
+        "Agro-processing",
+        "Retail",
+        "Logistics",
+        "Farming",
+        "Catering"
+      ],
+      "default": "Retail"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "price"
+  ]
+}

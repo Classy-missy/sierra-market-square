@@ -1,0 +1,50 @@
+{
+  "name": "Vendor",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string",
+      "title": "Business Name"
+    },
+    "business_type": {
+      "type": "string",
+      "title": "Business Type",
+      "enum": [
+        "Agro-processing",
+        "Retail",
+        "Logistics",
+        "Farming",
+        "Catering"
+      ],
+      "default": "Retail"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "image": {
+      "type": "string",
+      "title": "Business Image"
+    },
+    "location": {
+      "type": "string",
+      "title": "Location"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email"
+    },
+    "owner_name": {
+      "type": "string",
+      "title": "Owner Name"
+    }
+  },
+  "required": [
+    "business_name",
+    "business_type"
+  ]
+}

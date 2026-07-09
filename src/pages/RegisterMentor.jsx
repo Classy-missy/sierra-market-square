@@ -1,0 +1,347 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { toast } from "@/components/ui/use-toast";
+import { Heart, Mail, Lock, Loader2, Phone, User, Upload, Check } from "lucide-react";
+
+const MENTOR_IMG = "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/d8a6b9149_generated_b70b6a63.png";
+
+const expertiseOptions = [
+  "Agro-processing",
+  "Business Management",
+  "Marketing & Sales",
+  "Finance & Accounting",
+  "Supply Chain & Logistics",
+  "Technology & Innovation",
+  "Export & Trade",
+  "Legal & Compliance",
+];
+
+export default function RegisterMentor() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [bio, setBio] = useState("");
+  const [selectedExpertise, setSelectedExpertise] = useState([]);
+  const [mentorImage, setMentorImage] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+
+  const toggleExpertise = (area) => {
+    setSelectedExpertise((prev) =>
+      prev.includes(area) ? prev.filter((a) => a !== area) : [...prev, area]
+    );
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingImage(true);
+    setError("");
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setMentorImage(file_url);
+    } catch (err) {
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    if (selectedExpertise.length === 0) {
+      setError("Please select at least one area of expertise");
+      return;
+    }
+    setLoading(true);
+    try {
+      await base44.auth.register({ email, password });
+      setShowOtp(true);
+    } catch (err) {
+      setError(err.message || "Registration failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerify = async () => {
+    setError("");
+    setLoading(true);
+    try {
+      const result = await base44.auth.verifyOtp({ email, otpCode });
+      if (result?.access_token) {
+        base44.auth.setToken(result.access_token);
+        try {
+          await base44.auth.updateMe({ full_name: name });
+          await base44.entities.Mentor.create({
+            name,
+            expertise_areas: selectedExpertise,
+            bio,
+            image: mentorImage || "",
+            email,
+            phone,
+            availability: "Available",
+          });
+        } catch (e) {
+          console.error("Failed to create mentor profile", e);
+        }
+      }
+      window.location.href = "/mentors";
+    } catch (err) {
+      setError(err.message || "Invalid verification code");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResend = async () => {
+    setError("");
+    try {
+      await base44.auth.resendOtp(email);
+      toast({ title: "Code sent", description: "Check your email for the new code." });
+    } catch (err) {
+      setError(err.message || "Failed to resend code");
+    }
+  };
+
+  if (showOtp) {
+    return (
+      <div className="min-h-screen flex bg-[#F9F7F2]">
+        <div className="hidden lg:block w-1/2 relative">
+          <img src={MENTOR_IMG} alt="Mentor" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1612]/80 via-[#1A1612]/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-12">
+            <h2 className="font-heading text-3xl font-bold text-[#F9F7F2] mb-3">
+              Almost there.
+            </h2>
+            <p className="text-[#F9F7F2]/70 leading-relaxed">
+              Verify your email to complete your mentor registration and join our community of impact.
+            </p>
+          </div>
+        </div>
+
+        <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-12">
+          <div className="max-w-md w-full">
+            <Link to="/" className="flex items-center gap-1 mb-8">
+              <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
+              <span className="font-heading text-2xl font-bold text-[#D95D39]">Glow</span>
+            </Link>
+
+            <div className="bg-white border border-[#E8E2D5] rounded-lg p-8">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#F0EBE0] mb-4">
+                  <Mail className="w-6 h-6 text-[#D95D39]" />
+                </div>
+                <h1 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">Verify your email</h1>
+                <p className="text-sm text-[#1A1612]/60">We sent a code to {email}</p>
+              </div>
+
+              {error && (
+                <div className="mb-4 p-3 rounded-lg bg-red-50 text-red-600 text-sm">{error}</div>
+              )}
+
+              <div className="flex justify-center mb-6">
+                <InputOTP maxLength={6} value={otpCode} onChange={setOtpCode} autoFocus autoComplete="one-time-code">
+                  <InputOTPGroup>
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
+              </div>
+
+              <Button
+                className="w-full h-12 bg-[#D95D39] hover:bg-[#C04E2E] font-medium"
+                onClick={handleVerify}
+                disabled={loading || otpCode.length < 6}
+              >
+                {loading ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Verifying...</>
+                ) : (
+                  "Complete Registration"
+                )}
+              </Button>
+
+              <p className="text-center text-sm text-[#1A1612]/60 mt-4">
+                Didn't receive the code?{" "}
+                <button onClick={handleResend} className="text-[#D95D39]! font-medium hover:underline">
+                  Resend
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex bg-[#F9F7F2]">
+      {/* Left - Image + inspiring text */}
+      <div className="hidden lg:block w-1/2 relative">
+        <img src={MENTOR_IMG} alt="Empowered mentor" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1612]/80 via-[#1A1612]/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-12">
+          <h2 className="font-heading text-3xl font-bold text-[#F9F7F2] mb-3">
+            Share Your Light.<br />Empower a Generation.
+          </h2>
+          <p className="text-[#F9F7F2]/70 leading-relaxed">
+            Join an elite circle of mentors shaping the future of female entrepreneurship in Sierra Leone.
+          </p>
+        </div>
+      </div>
+
+      {/* Right - Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-12">
+        <div className="max-w-md w-full">
+          <Link to="/" className="flex items-center gap-1 mb-8">
+            <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
+            <span className="font-heading text-2xl font-bold text-[#D95D39]">Glow</span>
+          </Link>
+
+          <div className="mb-6">
+            <h1 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">Become a Mentor</h1>
+            <p className="text-sm text-[#1A1612]/60">
+              Share your expertise and guide the next generation of entrepreneurs.
+            </p>
+          </div>
+
+          {error && (
+            <div className="mb-4 p-3 rounded-lg bg-red-50 text-red-600 text-sm">{error}</div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Image upload */}
+            <div className="space-y-2">
+              <Label className="text-[#1A1612]">Portrait Image</Label>
+              <div className="flex items-center gap-4">
+                {mentorImage ? (
+                  <img src={mentorImage} alt="Preview" className="w-16 h-16 rounded-full object-cover border-2 border-[#D95D39]" />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-[#F0EBE0] flex items-center justify-center">
+                    <User className="w-6 h-6 text-[#1A1612]/40" />
+                  </div>
+                )}
+                <label className="cursor-pointer flex items-center gap-2 px-4 py-2 bg-[#F0EBE0] rounded-md text-sm font-medium text-[#1A1612] hover:bg-[#E8E2D5] transition-colors">
+                  <Upload className="w-4 h-4" />
+                  {uploadingImage ? "Uploading..." : mentorImage ? "Change Image" : "Upload Photo"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    disabled={uploadingImage}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-[#1A1612]">Full Name</Label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1612]/40" />
+                <Input id="name" type="text" placeholder="Aminata Kamara" value={name} onChange={(e) => setName(e.target.value)} className="pl-10 h-12 border-[#E8E2D5]" required />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-[#1A1612]">Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1612]/40" />
+                <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="pl-10 h-12 border-[#E8E2D5]" required />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone" className="text-[#1A1612]">Phone</Label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1612]/40" />
+                <Input id="phone" type="tel" placeholder="+232 76 123 456" value={phone} onChange={(e) => setPhone(e.target.value)} className="pl-10 h-12 border-[#E8E2D5]" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label className="text-[#1A1612]">Areas of Expertise</Label>
+              <div className="flex flex-wrap gap-2">
+                {expertiseOptions.map((area) => {
+                  const selected = selectedExpertise.includes(area);
+                  return (
+                    <button
+                      key={area}
+                      type="button"
+                      onClick={() => toggleExpertise(area)}
+                      className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                        selected
+                          ? "bg-[#D95D39] text-[#F9F7F2]"
+                          : "bg-[#F0EBE0] text-[#1A1612]/70 hover:bg-[#E8E2D5]"
+                      }`}
+                    >
+                      {selected && <Check className="w-3 h-3" />}
+                      {area}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="bio" className="text-[#1A1612]">Bio</Label>
+              <textarea
+                id="bio"
+                rows={3}
+                placeholder="Tell us about your experience and what you hope to share as a mentor..."
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                className="w-full px-3 py-2 rounded-md border border-[#E8E2D5] bg-white text-sm text-[#1A1612] focus:outline-none focus:ring-2 focus:ring-[#D95D39]/30 focus:border-[#D95D39] resize-none"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-[#1A1612]">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1612]/40" />
+                  <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 h-12 border-[#E8E2D5]" required />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirm" className="text-[#1A1612]">Confirm</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1612]/40" />
+                  <Input id="confirm" type="password" placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="pl-10 h-12 border-[#E8E2D5]" required />
+                </div>
+              </div>
+            </div>
+            <Button type="submit" className="w-full h-12 bg-[#D95D39] hover:bg-[#C04E2E] font-medium" disabled={loading || uploadingImage}>
+              {loading ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Creating account...</>
+              ) : (
+                <><Heart className="w-4 h-4 mr-2" /> Become a Mentor</>
+              )}
+            </Button>
+          </form>
+
+          <p className="text-center text-sm text-[#1A1612]/60 mt-6">
+            Already have an account?{" "}
+            <Link to="/login" className="text-[#D95D39] font-medium hover:underline">
+              Log in
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Mentor",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Full Name"
+    },
+    "expertise_areas": {
+      "type": "array",
+      "title": "Expertise Areas",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "image": {
+      "type": "string",
+      "title": "Portrait Image"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "availability": {
+      "type": "string",
+      "title": "Availability",
+      "enum": [
+        "Available",
+        "Limited",
+        "Full"
+      ],
+      "default": "Available"
+    }
+  },
+  "required": [
+    "name",
+    "expertise_areas",
+    "bio"
+  ]
+}
