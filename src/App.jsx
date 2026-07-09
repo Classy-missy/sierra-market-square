@@ -13,6 +13,8 @@ import Vendors from "@/pages/Vendors";
 import Mentors from "@/pages/Mentors";
 import RegisterCustomer from "@/pages/RegisterCustomer";
 import RegisterMentor from "@/pages/RegisterMentor";
+import AdminDashboard from "@/pages/AdminDashboard";
+import AdminRoute from "@/components/AdminRoute";
 import Login from "@/pages/Login";
 
 const AuthenticatedApp = () => {
@@ -43,6 +45,9 @@ const AuthenticatedApp = () => {
     <Routes>
       {/* Add your page Route elements here */}
       <Route path="/login" element={<Login />} />
+      <Route element={<AdminRoute />}>
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Route>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/vendors" element={<Vendors />} />

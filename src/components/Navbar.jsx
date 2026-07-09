@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, User, Heart, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, User, Heart, Globe, Shield } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
   const navItems = [
     { label: "Home", path: "/" },
@@ -60,6 +63,15 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="flex items-center gap-1 text-sm font-medium text-[#D95D39] hover:text-[#C04E2E]"
+            >
+              <Shield className="w-4 h-4" /> Admin
+            </Link>
+          )}
 
           {/* Register dropdown */}
           <div
@@ -122,6 +134,15 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+          {isAdmin && (
+            <Link
+              to="/admin"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-1 py-1 text-sm font-medium text-[#D95D39]"
+            >
+              <Shield className="w-4 h-4" /> Admin Dashboard
+            </Link>
+          )}
           <div className="pt-3 border-t border-[#E8E2D5]">
             <p className="text-xs font-semibold text-[#1A1612]/50 mb-2 uppercase tracking-wide">Register</p>
             <Link
