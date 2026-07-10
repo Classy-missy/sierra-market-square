@@ -1,6 +1,11 @@
 import React from "react";
+import { MessageCircle, Mail, Globe } from "lucide-react";
 
 export default function VendorCard({ vendor }) {
+  const whatsappNum = vendor.whatsapp || vendor.phone;
+  const cleanNum = whatsappNum ? whatsappNum.replace(/[^\d+]/g, "").replace(/^0/, "+232") : "";
+  const hasContact = vendor.email || cleanNum || vendor.website;
+
   return (
     <div className="bg-[#F9F7F2] rounded-lg overflow-hidden border border-[#E8E2D5] hover:shadow-lg transition-shadow">
       <div className="relative overflow-hidden h-48">
@@ -25,6 +30,39 @@ export default function VendorCard({ vendor }) {
           <p className="text-xs text-[#1A1612]/50 mt-2 pt-2 border-t border-[#E8E2D5]">
             Owner: {vendor.owner_name}
           </p>
+        )}
+
+        {hasContact && (
+          <div className="mt-3 pt-3 border-t border-[#E8E2D5] flex items-center gap-3">
+            {cleanNum && (
+              <a
+                href={`https://wa.me/${cleanNum.replace(/^\+/, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-medium text-[#25D366] hover:underline"
+              >
+                <MessageCircle className="w-4 h-4" /> WhatsApp
+              </a>
+            )}
+            {vendor.email && (
+              <a
+                href={`mailto:${vendor.email}`}
+                className="inline-flex items-center gap-1 text-xs font-medium text-[#00A0E3] hover:underline"
+              >
+                <Mail className="w-4 h-4" /> Email
+              </a>
+            )}
+            {vendor.website && (
+              <a
+                href={vendor.website.startsWith("http") ? vendor.website : `https://${vendor.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-medium text-[#00A0E3] hover:underline"
+              >
+                <Globe className="w-4 h-4" /> Website
+              </a>
+            )}
+          </div>
         )}
       </div>
     </div>

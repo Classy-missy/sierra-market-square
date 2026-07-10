@@ -16,6 +16,8 @@ export default function VendorForm({ onCreated }) {
     location: "",
     phone: "",
     email: "",
+    whatsapp: "",
+    website: "",
     owner_name: "",
     image: "",
   });
@@ -61,6 +63,8 @@ export default function VendorForm({ onCreated }) {
         location: "",
         phone: "",
         email: "",
+        whatsapp: "",
+        website: "",
         owner_name: "",
         image: "",
       });
@@ -161,8 +165,19 @@ export default function VendorForm({ onCreated }) {
           <Input value={form.phone} onChange={(e) => handleChange("phone", e.target.value)} className={inputClass} placeholder="+232 76 123 456" />
         </div>
         <div className="space-y-2">
+          <Label className="text-[#1A1612]">WhatsApp Number</Label>
+          <Input value={form.whatsapp} onChange={(e) => handleChange("whatsapp", e.target.value)} className={inputClass} placeholder="+232 76 123 456" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-2">
           <Label className="text-[#1A1612]">Email</Label>
           <Input value={form.email} onChange={(e) => handleChange("email", e.target.value)} type="email" className={inputClass} placeholder="business@example.com" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-[#1A1612]">Website</Label>
+          <Input value={form.website} onChange={(e) => handleChange("website", e.target.value)} className={inputClass} placeholder="www.example.com" />
         </div>
       </div>
 

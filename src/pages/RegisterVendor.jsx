@@ -20,6 +20,8 @@ export default function RegisterVendor() {
   const [sector, setSector] = useState("Retail & Trading");
   const [region, setRegion] = useState("Western Area");
   const [description, setDescription] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [website, setWebsite] = useState("");
   const [businessImage, setBusinessImage] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
   const [password, setPassword] = useState("");
@@ -85,6 +87,8 @@ export default function RegisterVendor() {
             owner_name: ownerName,
             phone,
             email,
+            whatsapp: whatsapp,
+            website: website,
           });
         } catch (e) {
           console.error("Failed to create vendor profile", e);
@@ -334,6 +338,14 @@ export default function RegisterVendor() {
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1612]/40" />
                 <Input id="phone" type="tel" placeholder="+232 76 123 456" value={phone} onChange={(e) => setPhone(e.target.value)} className="pl-10 h-12 border-[#E8E2D5]" />
               </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="whatsapp" className="text-[#1A1612]">WhatsApp Number</Label>
+              <Input id="whatsapp" type="tel" placeholder="+232 76 123 456" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} className="h-12 border-[#E8E2D5]" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="website" className="text-[#1A1612]">Website (optional)</Label>
+              <Input id="website" type="text" placeholder="www.yourbusiness.com" value={website} onChange={(e) => setWebsite(e.target.value)} className="h-12 border-[#E8E2D5]" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">

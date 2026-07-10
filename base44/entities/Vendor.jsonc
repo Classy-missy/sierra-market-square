@@ -67,6 +67,14 @@
       "type": "string",
       "title": "Email"
     },
+    "website": {
+      "type": "string",
+      "title": "Website"
+    },
+    "whatsapp": {
+      "type": "string",
+      "title": "WhatsApp Number"
+    },
     "owner_name": {
       "type": "string",
       "title": "Owner Name"
