@@ -35,7 +35,7 @@ export default function Navbar() {
               className="h-5"
               onError={(e) => {e.target.style.display = 'none';}} />
             
-            <span className="text-xs font-bold tracking-wide">UN Women Partner</span>
+            <span className="text-xs font-bold tracking-wide hidden">UN Women Partner</span>
           </a>
           <span className="hidden sm:inline text-xs text-[#F9F7F2]/60">
             Empowering Women Entrepreneurs in Sierra Leone
