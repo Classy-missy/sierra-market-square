@@ -50,7 +50,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#1A1612]/40 via-[#1A1612]/30 to-[#1A1612]/70" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-4 max-w-3xl">
-            <h1 className="font-heading text-4xl md:text-6xl font-bold text-[#F9F7F2] mb-4">Empowering Women Led, Businesses
+            <h1 className="font-heading text-4xl md:text-6xl font-bold text-[#F9F7F2] mb-4">Empowering Women Led, Square
 
             </h1>
             <p className="text-base md:text-lg text-[#F9F7F2]/80 mb-6 leading-relaxed">
