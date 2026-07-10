@@ -14,6 +14,7 @@ import Mentors from "@/pages/Mentors";
 import RegisterCustomer from "@/pages/RegisterCustomer";
 import RegisterMentor from "@/pages/RegisterMentor";
 import RegisterVendor from "@/pages/RegisterVendor";
+import VendorDetail from "@/pages/VendorDetail";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminRoute from "@/components/AdminRoute";
 import Login from "@/pages/Login";
@@ -52,6 +53,7 @@ const AuthenticatedApp = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/vendors" element={<Vendors />} />
+        <Route path="/vendors/:id" element={<VendorDetail />} />
         <Route path="/mentors" element={<Mentors />} />
         <Route path="/register-customer" element={<RegisterCustomer />} />
         <Route path="/register-mentor" element={<RegisterMentor />} />

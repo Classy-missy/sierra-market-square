@@ -1,13 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { MessageCircle, Mail, Globe } from "lucide-react";
 
 export default function VendorCard({ vendor }) {
+  const navigate = useNavigate();
   const whatsappNum = vendor.whatsapp || vendor.phone;
   const cleanNum = whatsappNum ? whatsappNum.replace(/[^\d+]/g, "").replace(/^0/, "+232") : "";
   const hasContact = vendor.email || cleanNum || vendor.website;
 
+  const stop = (e) => e.stopPropagation();
+
   return (
-    <div className="bg-[#F9F7F2] rounded-lg overflow-hidden border border-[#E8E2D5] hover:shadow-lg transition-shadow">
+    <div
+      onClick={() => navigate(`/vendors/${vendor.id}`)}
+      className="bg-[#F9F7F2] rounded-lg overflow-hidden border border-[#E8E2D5] hover:shadow-lg hover:border-[#00A0E3]/30 transition-all cursor-pointer"
+    >
       <div className="relative overflow-hidden h-48">
         <img
           src={vendor.image || "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/e30aa9e2a_generated_140002be.png"}
@@ -39,6 +46,7 @@ export default function VendorCard({ vendor }) {
                 href={`https://wa.me/${cleanNum.replace(/^\+/, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={stop}
                 className="inline-flex items-center gap-1 text-xs font-medium text-[#25D366] hover:underline"
               >
                 <MessageCircle className="w-4 h-4" /> WhatsApp
@@ -47,6 +55,7 @@ export default function VendorCard({ vendor }) {
             {vendor.email && (
               <a
                 href={`mailto:${vendor.email}`}
+                onClick={stop}
                 className="inline-flex items-center gap-1 text-xs font-medium text-[#00A0E3] hover:underline"
               >
                 <Mail className="w-4 h-4" /> Email
@@ -57,6 +66,7 @@ export default function VendorCard({ vendor }) {
                 href={vendor.website.startsWith("http") ? vendor.website : `https://${vendor.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={stop}
                 className="inline-flex items-center gap-1 text-xs font-medium text-[#00A0E3] hover:underline"
               >
                 <Globe className="w-4 h-4" /> Website
