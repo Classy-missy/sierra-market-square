@@ -1,4 +1,5 @@
 import React from "react";
+import ProductReviews from "@/components/ProductReviews";
 
 export default function ProductCard({ product }) {
   return (
@@ -31,6 +32,8 @@ export default function ProductCard({ product }) {
           </span>
           <span className="text-xs text-[#1A1612]/50">{product.unit}</span>
         </div>
+
+        <ProductReviews product={product} />
       </div>
     </div>
   );

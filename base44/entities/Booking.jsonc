@@ -1,0 +1,56 @@
+{
+  "name": "Booking",
+  "type": "object",
+  "properties": {
+    "mentor_id": {
+      "type": "string",
+      "title": "Mentor ID"
+    },
+    "mentor_name": {
+      "type": "string",
+      "title": "Mentor Name"
+    },
+    "mentor_email": {
+      "type": "string",
+      "title": "Mentor Email"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_email": {
+      "type": "string",
+      "title": "Customer Email"
+    },
+    "meeting_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Meeting Date"
+    },
+    "meeting_time": {
+      "type": "string",
+      "title": "Meeting Time"
+    },
+    "topic": {
+      "type": "string",
+      "title": "Topic"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending",
+        "confirmed",
+        "cancelled"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "mentor_id",
+    "customer_name",
+    "customer_email",
+    "meeting_date",
+    "meeting_time"
+  ]
+}
