@@ -11,10 +11,10 @@ export default function Navbar() {
   const isAdmin = user?.role === "admin";
 
   const navItems = [
-    { label: "Home", path: "/" },
-    { label: "Vendor", path: "/vendors" },
-    { label: "Mentors", path: "/mentors" },
-  ];
+  { label: "Home", path: "/" },
+  { label: "Vendor", path: "/vendors" },
+  { label: "Mentors", path: "/mentors" }];
+
 
   const isActive = (path) => location.pathname === path;
 
@@ -27,14 +27,14 @@ export default function Navbar() {
             href="https://www.unwomen.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2"
-          >
+            className="flex items-center gap-2">
+            
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/8/83/UN_WOMEN_Logo.svg"
               alt="UN Women"
               className="h-5"
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
+              onError={(e) => {e.target.style.display = 'none';}} />
+            
             <span className="text-xs font-bold tracking-wide">UN Women Partner</span>
           </a>
           <span className="hidden sm:inline text-xs text-[#F9F7F2]/60">
@@ -46,49 +46,49 @@ export default function Navbar() {
       {/* Main navbar */}
       <nav className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-1">
-          <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
-          <span className="font-heading text-2xl font-bold text-[#00A0E3]">Glow</span>
+          <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Leone Market </span>
+          <span className="font-heading text-2xl font-bold text-[#00A0E3]">s</span>
         </Link>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`text-sm font-medium transition-colors ${
-                isActive(item.path) ? "text-[#00A0E3]" : "text-[#1A1612] hover:text-[#00A0E3]"
-              }`}
-            >
+          {navItems.map((item) =>
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`text-sm font-medium transition-colors ${
+            isActive(item.path) ? "text-[#00A0E3]" : "text-[#1A1612] hover:text-[#00A0E3]"}`
+            }>
+            
               {item.label}
             </Link>
-          ))}
+          )}
 
-          {isAdmin && (
-            <Link
-              to="/admin"
-              className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:text-[#0086C0]"
-            >
+          {isAdmin &&
+          <Link
+            to="/admin"
+            className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:text-[#0086C0]">
+            
               <Shield className="w-4 h-4" /> Admin
             </Link>
-          )}
+          }
 
           {/* Register dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setRegisterOpen(true)}
-            onMouseLeave={() => setRegisterOpen(false)}
-          >
+            onMouseLeave={() => setRegisterOpen(false)}>
+            
             <button className="flex items-center gap-1 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3]">
               Register <ChevronDown className="w-4 h-4" />
             </button>
-            {registerOpen && (
-              <div className="absolute top-full right-0 pt-2 z-50">
+            {registerOpen &&
+            <div className="absolute top-full right-0 pt-2 z-50">
                 <div className="bg-[#F9F7F2] border border-[#E8E2D5] rounded-lg shadow-xl w-72 overflow-hidden">
                   <Link
-                    to="/register-customer"
-                    className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors border-b border-[#E8E2D5]"
-                  >
+                  to="/register-customer"
+                  className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors border-b border-[#E8E2D5]">
+                  
                     <User className="w-5 h-5 text-[#00A0E3] flex-shrink-0" />
                     <div>
                       <div className="font-semibold text-sm text-[#1A1612]">Join as Customer</div>
@@ -96,9 +96,9 @@ export default function Navbar() {
                     </div>
                   </Link>
                   <Link
-                    to="/register-vendor"
-                    className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors border-b border-[#E8E2D5]"
-                  >
+                  to="/register-vendor"
+                  className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors border-b border-[#E8E2D5]">
+                  
                     <Store className="w-5 h-5 text-[#00A0E3] flex-shrink-0" />
                     <div>
                       <div className="font-semibold text-sm text-[#1A1612]">Join as Vendor</div>
@@ -106,9 +106,9 @@ export default function Navbar() {
                     </div>
                   </Link>
                   <Link
-                    to="/register-mentor"
-                    className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors"
-                  >
+                  to="/register-mentor"
+                  className="flex items-center gap-3 p-4 hover:bg-[#F0EBE0] transition-colors">
+                  
                     <Heart className="w-5 h-5 text-[#2D4F1E] flex-shrink-0" />
                     <div>
                       <div className="font-semibold text-sm text-[#1A1612]">Join as Mentor</div>
@@ -117,7 +117,7 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            )}
+            }
           </div>
         </div>
 
@@ -128,55 +128,55 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden border-t border-[#E8E2D5] px-4 py-4 space-y-3 bg-[#F9F7F2]">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              onClick={() => setMobileOpen(false)}
-              className={`block text-sm font-medium ${
-                isActive(item.path) ? "text-[#00A0E3]" : "text-[#1A1612]"
-              }`}
-            >
+      {mobileOpen &&
+      <div className="md:hidden border-t border-[#E8E2D5] px-4 py-4 space-y-3 bg-[#F9F7F2]">
+          {navItems.map((item) =>
+        <Link
+          key={item.path}
+          to={item.path}
+          onClick={() => setMobileOpen(false)}
+          className={`block text-sm font-medium ${
+          isActive(item.path) ? "text-[#00A0E3]" : "text-[#1A1612]"}`
+          }>
+          
               {item.label}
             </Link>
-          ))}
-          {isAdmin && (
-            <Link
-              to="/admin"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-1 py-1 text-sm font-medium text-[#00A0E3]"
-            >
+        )}
+          {isAdmin &&
+        <Link
+          to="/admin"
+          onClick={() => setMobileOpen(false)}
+          className="flex items-center gap-1 py-1 text-sm font-medium text-[#00A0E3]">
+          
               <Shield className="w-4 h-4" /> Admin Dashboard
             </Link>
-          )}
+        }
           <div className="pt-3 border-t border-[#E8E2D5]">
             <p className="text-xs font-semibold text-[#1A1612]/50 mb-2 uppercase tracking-wide">Register</p>
             <Link
-              to="/register-customer"
-              onClick={() => setMobileOpen(false)}
-              className="block py-1 text-sm font-medium text-[#1A1612]"
-            >
+            to="/register-customer"
+            onClick={() => setMobileOpen(false)}
+            className="block py-1 text-sm font-medium text-[#1A1612]">
+            
               Join as Customer
             </Link>
             <Link
-              to="/register-vendor"
-              onClick={() => setMobileOpen(false)}
-              className="block py-1 text-sm font-medium text-[#1A1612]"
-            >
+            to="/register-vendor"
+            onClick={() => setMobileOpen(false)}
+            className="block py-1 text-sm font-medium text-[#1A1612]">
+            
               Join as Vendor
             </Link>
             <Link
-              to="/register-mentor"
-              onClick={() => setMobileOpen(false)}
-              className="block py-1 text-sm font-medium text-[#1A1612]"
-            >
+            to="/register-mentor"
+            onClick={() => setMobileOpen(false)}
+            className="block py-1 text-sm font-medium text-[#1A1612]">
+            
               Join as Mentor
             </Link>
           </div>
         </div>
-      )}
-    </header>
-  );
+      }
+    </header>);
+
 }
