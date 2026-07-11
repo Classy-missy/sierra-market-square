@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="font-heading text-xl font-bold mb-3">A Glow
+            <h3 className="font-heading text-xl font-bold mb-3">About U
 
             </h3>
             <p className="text-sm text-[#F9F7F2]/70 mb-4 leading-relaxed">
@@ -20,7 +20,7 @@ export default function Footer() {
               href="https://www.unwomen.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mx-1 px-1">
+              className="inline-flex items-center gap-2">
               
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/8/83/UN_WOMEN_Logo.svg"
