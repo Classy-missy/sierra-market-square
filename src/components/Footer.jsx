@@ -28,7 +28,7 @@ export default function Footer() {
                 className="h-5 mx-10"
                 onError={(e) => {e.target.style.display = 'none';}} />
               
-              <span className="text-xs font-semibold">UN Women Partner</span>
+              
             </a>
           </div>
 
