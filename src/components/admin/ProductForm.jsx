@@ -108,7 +108,7 @@ export default function ProductForm({ onCreated }) {
           <Input value={form.name} onChange={(e) => handleChange("name", e.target.value)} className={inputClass} placeholder="e.g. White Garri" required />
         </div>
         <div className="space-y-2">
-          <Label className="text-[#1A1612]">Product Category *</Label>
+          <Label className="text-[#1A1612]">Product Type *</Label>
           <select value={form.category} onChange={(e) => handleChange("category", e.target.value)} className={selectClass}>
             {PRODUCT_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
@@ -152,7 +152,7 @@ export default function ProductForm({ onCreated }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-[#1A1612]">Sector</Label>
+          <Label className="text-[#1A1612]">Category</Label>
           <select value={form.sector} onChange={(e) => handleChange("sector", e.target.value)} className={selectClass}>
             {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>

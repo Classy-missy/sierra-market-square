@@ -18,6 +18,8 @@ import VendorDetail from "@/pages/VendorDetail";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminRoute from "@/components/AdminRoute";
 import Login from "@/pages/Login";
+import About from "@/pages/About";
+import Blog from "@/pages/Blog";
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -58,6 +60,8 @@ const AuthenticatedApp = () => {
         <Route path="/register-customer" element={<RegisterCustomer />} />
         <Route path="/register-mentor" element={<RegisterMentor />} />
         <Route path="/register-vendor" element={<RegisterVendor />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

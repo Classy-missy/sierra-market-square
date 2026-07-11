@@ -1,0 +1,35 @@
+{
+  "name": "BlogPost",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "excerpt": {
+      "type": "string",
+      "title": "Excerpt"
+    },
+    "content": {
+      "type": "string",
+      "title": "Content"
+    },
+    "author_name": {
+      "type": "string",
+      "title": "Author Name"
+    },
+    "image": {
+      "type": "string",
+      "title": "Cover Image"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category",
+      "default": "Business Story"
+    }
+  },
+  "required": [
+    "title",
+    "content"
+  ]
+}

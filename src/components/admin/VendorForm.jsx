@@ -106,7 +106,7 @@ export default function VendorForm({ onCreated }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-[#1A1612]">Sector</Label>
+          <Label className="text-[#1A1612]">Category</Label>
           <select value={form.sector} onChange={(e) => handleChange("sector", e.target.value)} className={selectClass}>
             {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>

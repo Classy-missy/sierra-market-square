@@ -303,7 +303,7 @@ export default function RegisterVendor() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[#1A1612]">Sector</Label>
+              <Label className="text-[#1A1612]">Category</Label>
               <select
                 value={sector}
                 onChange={(e) => setSector(e.target.value)}

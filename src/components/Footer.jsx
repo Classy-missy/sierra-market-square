@@ -59,7 +59,7 @@ export default function Footer() {
             <h4 className="font-semibold text-sm mb-4 uppercase tracking-wide">Get in Touch</h4>
             <ul className="space-y-3 text-sm text-[#F9F7F2]/70">
               <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#00A0E3]" /> hello@sierramarketglow.sl
+                <Mail className="w-4 h-4 text-[#00A0E3]" /> sierraleone.comms@unwomen.org
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#00A0E3]" /> +232 76 123 456

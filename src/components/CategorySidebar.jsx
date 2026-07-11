@@ -35,7 +35,7 @@ export default function CategorySidebar({ activeFilter, onFilterChange }) {
         placeholder="All business types"
       />
       <FilterSelect
-        label="Sectors"
+        label="Categories"
         items={SECTORS}
         value={getValue("sector")}
         onChange={handleChange("sector")}
@@ -49,7 +49,7 @@ export default function CategorySidebar({ activeFilter, onFilterChange }) {
         placeholder="All regions"
       />
       <FilterSelect
-        label="Product Categories"
+        label="Product Type"
         items={PRODUCT_CATEGORIES}
         value={getValue("category")}
         onChange={handleChange("category")}
