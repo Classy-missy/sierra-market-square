@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[#F9F7F2] border-b border-[#E8E2D5]">
       {/* Pre-header with UN Women logo */}
-      <div className="bg-[#1A1612] text-[#F9F7F2] px-4 py-1.5">
+      <div className="bg-[#0D1B2A] text-[#F9F7F2] px-4 py-1.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <a href="https://www.unwomen.org" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
             <img

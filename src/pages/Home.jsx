@@ -87,7 +87,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-4 max-w-3xl">
             <h1 className="font-heading text-3xl md:text-6xl font-bold text-[#F9F7F2] mb-4">
-              {SLIDES[currentSlide].title}
+              Empowering Women Led <span className="text-[#00A0E3]">Businesses</span>
             </h1>
             <p className="text-sm md:text-lg text-[#F9F7F2]/80 mb-6 leading-relaxed">
               {SLIDES[currentSlide].subtitle}
