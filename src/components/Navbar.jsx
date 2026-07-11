@@ -47,7 +47,7 @@ export default function Navbar() {
       </div>
 
       {/* Main navbar */}
-      <nav className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-4 py-1.5 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-1">
           <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
           <span className="font-heading text-2xl font-bold text-[#00A0E3]">Glow</span>

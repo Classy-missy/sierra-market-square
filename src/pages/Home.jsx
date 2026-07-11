@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero Carousel */}
-      <section className="relative h-[55vh] min-h-[400px] overflow-hidden">
+      <section className="relative h-[65vh] min-h-[450px] overflow-hidden">
         {SLIDES.map((slide, idx) => (
           <div
             key={idx}
@@ -79,7 +79,7 @@ export default function Home() {
               idx === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
+            <img src={slide.image} alt={slide.title} className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#1A1612]/40 via-[#1A1612]/30 to-[#1A1612]/70" />
           </div>
         ))}
