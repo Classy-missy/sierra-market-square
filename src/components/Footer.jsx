@@ -20,15 +20,15 @@ export default function Footer() {
               href="https://www.unwomen.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2"
-            >
+              className="inline-flex items-center gap-2">
+              
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/8/83/UN_WOMEN_Logo.svg"
                 alt="UN Women"
                 className="h-5"
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-              <span className="text-xs font-semibold">UN Women Partner</span>
+                onError={(e) => {e.target.style.display = 'none';}} />
+              
+              <span className="text-xs font-semibold hidden">UN Women Partner</span>
             </a>
           </div>
 
@@ -76,6 +76,6 @@ export default function Footer() {
           <p className="text-xs text-[#F9F7F2]/50">Powered by UN Women · Empowering Women Entrepreneurs</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }
