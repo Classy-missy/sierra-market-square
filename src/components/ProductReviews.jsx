@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Star, Loader2, MessageSquare, ChevronDown, ChevronUp } from "lucide-react";
+import { Star, Loader2, MessageSquare, ChevronDown, ChevronUp, Lock } from "lucide-react";
 
 function StarRow({ rating, onRate, size = "w-5 h-5" }) {
   return (
@@ -26,6 +28,7 @@ function StarRow({ rating, onRate, size = "w-5 h-5" }) {
 }
 
 export default function ProductReviews({ product }) {
+  const { isAuthenticated, user } = useAuth();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
@@ -34,6 +37,12 @@ export default function ProductReviews({ product }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setForm((p) => ({ ...p, reviewer_name: user.full_name || user.email?.split("@")[0] || "" }));
+    }
+  }, [isAuthenticated, user]);
 
   const loadReviews = async () => {
     try {
@@ -103,7 +112,15 @@ export default function ProductReviews({ product }) {
       </div>
 
       {/* Review form */}
-      {showForm && (
+      {showForm && !isAuthenticated && (
+        <div className="mt-3 p-3 bg-[#F0EBE0] rounded-md text-center">
+          <Lock className="w-4 h-4 text-[#1A1612]/50 mx-auto mb-1" />
+          <p className="text-xs text-[#1A1612]/70 mb-2">Please log in to write a review.</p>
+          <Link to="/login" className="text-xs font-medium text-[#00A0E3] hover:underline">Login</Link>
+        </div>
+      )}
+
+      {showForm && isAuthenticated && (
         <form onSubmit={handleSubmit} className="mt-3 p-3 bg-[#F0EBE0] rounded-md space-y-2">
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div>

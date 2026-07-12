@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import CategorySidebar from "@/components/CategorySidebar";
 import ProductCard from "@/components/ProductCard";
 import VendorCard from "@/components/VendorCard";
-import { SlidersHorizontal, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { SlidersHorizontal, X, ChevronLeft, ChevronRight, Search } from "lucide-react";
 
 const SLIDES = [
   {
@@ -30,6 +30,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     loadData();
@@ -57,14 +58,30 @@ export default function Home() {
     }
   };
 
+  const searchLower = searchQuery.toLowerCase().trim();
   const filteredProducts = products.filter((p) => {
-    if (!activeFilter) return true;
-    if (activeFilter.type === "category") return p.category === activeFilter.value;
-    if (activeFilter.type === "business") return p.business_type === activeFilter.value;
-    if (activeFilter.type === "sector") return p.sector === activeFilter.value;
-    if (activeFilter.type === "region") return p.region === activeFilter.value;
-    return true;
+    const matchesFilter =
+      !activeFilter ||
+      (activeFilter.type === "category" && p.category === activeFilter.value) ||
+      (activeFilter.type === "business" && p.business_type === activeFilter.value) ||
+      (activeFilter.type === "sector" && p.sector === activeFilter.value) ||
+      (activeFilter.type === "region" && p.region === activeFilter.value);
+    const matchesSearch =
+      !searchLower ||
+      p.name?.toLowerCase().includes(searchLower) ||
+      p.description?.toLowerCase().includes(searchLower) ||
+      p.vendor_name?.toLowerCase().includes(searchLower) ||
+      p.category?.toLowerCase().includes(searchLower);
+    return matchesFilter && matchesSearch;
   });
+
+  const filteredVendors = vendors.filter((v) =>
+    !searchLower ||
+    v.business_name?.toLowerCase().includes(searchLower) ||
+    v.description?.toLowerCase().includes(searchLower) ||
+    v.owner_name?.toLowerCase().includes(searchLower) ||
+    v.location?.toLowerCase().includes(searchLower)
+  );
 
   const goToSlide = (idx) => setCurrentSlide((idx + SLIDES.length) % SLIDES.length);
 
@@ -131,6 +148,28 @@ export default function Home() {
 
       {/* Marketplace */}
       <section id="marketplace" className="max-w-7xl mx-auto px-4 py-12">
+        {/* Search bar */}
+        <div className="mb-6">
+          <div className="relative max-w-2xl mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1A1612]/40" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search for produce, products, or businesses..."
+              className="w-full pl-12 pr-4 py-3 rounded-full border border-[#E8E2D5] bg-[#F9F7F2] text-sm text-[#1A1612] placeholder:text-[#1A1612]/40 focus:outline-none focus:ring-2 focus:ring-[#00A0E3]/30 focus:border-[#00A0E3]"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#1A1612]/40 hover:text-[#1A1612]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* Mobile filter toggle */}
         <div className="lg:hidden mb-4">
           <button
@@ -170,7 +209,11 @@ export default function Home() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-heading text-2xl font-bold text-[#1A1612]">
-                {activeFilter ? activeFilter.value : "All Products"}
+                {searchLower
+                  ? `Search: "${searchQuery}"`
+                  : activeFilter
+                  ? activeFilter.value
+                  : "All Products"}
               </h2>
               <span className="text-sm text-[#1A1612]/50">{filteredProducts.length} items</span>
             </div>
@@ -189,18 +232,22 @@ export default function Home() {
               </div>
             ) : (
               <div className="text-center py-16">
-                <p className="text-[#1A1612]/50">No products found in this category.</p>
+                <p className="text-[#1A1612]/50">
+                  {searchLower
+                    ? `No products match "${searchQuery}". Try a different search.`
+                    : "No products found in this category."}
+                </p>
               </div>
             )}
 
             {/* Featured vendors */}
-            {vendors.length > 0 && !activeFilter && (
+            {filteredVendors.length > 0 && !activeFilter && (
               <div className="mt-16">
                 <h2 className="font-heading text-2xl font-bold text-[#1A1612] mb-6">
-                  Featured Vendors
+                  {searchLower ? "Matching Vendors" : "Featured Vendors"}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {vendors.slice(0, 3).map((vendor) => (
+                  {filteredVendors.slice(0, 3).map((vendor) => (
                     <VendorCard key={vendor.id} vendor={vendor} />
                   ))}
                 </div>
