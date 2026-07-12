@@ -32,8 +32,23 @@ const AuthenticatedApp = () => {
   const location = useLocation();
   const isPublicAuthRoute = PUBLIC_AUTH_ROUTES.includes(location.pathname);
 
+  // Render public auth routes immediately — no auth checks, no loading state
+  if (isPublicAuthRoute) {
+    return (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/register" element={<RegisterCustomer />} />
+        <Route path="/register-customer" element={<RegisterCustomer />} />
+        <Route path="/register-vendor" element={<RegisterVendor />} />
+        <Route path="/register-mentor" element={<RegisterMentor />} />
+      </Routes>
+    );
+  }
+
   // Show loading spinner while checking app public settings or auth
-  if ((isLoadingPublicSettings || isLoadingAuth) && !isPublicAuthRoute) {
+  if (isLoadingPublicSettings || isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
@@ -42,7 +57,7 @@ const AuthenticatedApp = () => {
   }
 
   // Handle authentication errors
-  if (authError && !isPublicAuthRoute) {
+  if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
@@ -55,10 +70,6 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<AdminDashboard />} />
       </Route>
