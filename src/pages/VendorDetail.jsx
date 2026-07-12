@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import ProductCard from "@/components/ProductCard";
-import { MessageCircle, Mail, Globe, MapPin, ArrowLeft, Package, Lock } from "lucide-react";
+import VendorProfileEdit from "@/components/VendorProfileEdit";
+import { MessageCircle, Mail, Globe, MapPin, ArrowLeft, Package, Lock, Pencil } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import AuthPromptModal from "@/components/AuthPromptModal";
 
 export default function VendorDetail() {
   const { id } = useParams();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [vendor, setVendor] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isOwner, setIsOwner] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     if (!id || !isAuthenticated) {
@@ -21,6 +24,9 @@ export default function VendorDetail() {
     base44.entities.Vendor.get(id)
       .then(async (v) => {
         setVendor(v);
+        if (user?.email && v.email === user.email) {
+          setIsOwner(true);
+        }
         const matched = await base44.entities.Product.filter({
           vendor_name: v.business_name,
         });
@@ -90,7 +96,34 @@ export default function VendorDetail() {
         <ArrowLeft className="w-4 h-4" /> Back to Vendors
       </Link>
 
+      {/* Edit button for owner */}
+      {isOwner && !editing && (
+        <div className="mb-6">
+          <button
+            onClick={() => setEditing(true)}
+            className="inline-flex items-center gap-2 bg-[#00A0E3] text-[#F9F7F2] px-5 py-2.5 rounded-md text-sm font-medium hover:bg-[#0086C0] transition-colors"
+          >
+            <Pencil className="w-4 h-4" /> Edit Storefront
+          </button>
+        </div>
+      )}
+
+      {/* Edit form for owner */}
+      {isOwner && editing && (
+        <div className="mb-10">
+          <VendorProfileEdit
+            vendor={vendor}
+            onSaved={(updated) => {
+              setVendor(updated);
+              setEditing(false);
+            }}
+            onCancel={() => setEditing(false)}
+          />
+        </div>
+      )}
+
       {/* Vendor header */}
+      {!editing && (
       <div className="flex flex-col md:flex-row gap-6 md:gap-8 mb-10">
         <div className="w-full md:w-80 h-64 flex-shrink-0 rounded-lg overflow-hidden border border-[#E8E2D5]">
           <img
@@ -173,6 +206,7 @@ export default function VendorDetail() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Products section */}
       <div className="border-t border-[#E8E2D5] pt-8">

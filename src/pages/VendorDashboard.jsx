@@ -5,8 +5,9 @@ import { useAuth } from "@/lib/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Store, Package, Plus, Save, Loader2, LogOut, ArrowLeft } from "lucide-react";
+import { Store, Package, Plus, Save, Loader2, LogOut, ArrowLeft, Edit, Pencil } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/lib/constants";
+import VendorProfileEdit from "@/components/VendorProfileEdit";
 
 export default function VendorDashboard() {
   const { user, logout } = useAuth();
@@ -16,6 +17,7 @@ export default function VendorDashboard() {
   const [showForm, setShowForm] = useState(false);
   const [editValues, setEditValues] = useState({});
   const [saving, setSaving] = useState(null);
+  const [editingProfile, setEditingProfile] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -155,29 +157,58 @@ export default function VendorDashboard() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-white border border-[#E8E2D5] rounded-lg p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-6">
-            <img
-              src={vendor.image || "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/e30aa9e2a_generated_140002be.png"}
-              alt={vendor.business_name}
-              className="w-full md:w-40 h-40 rounded-lg object-cover"
+        {/* Business Profile */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Store className="w-5 h-5 text-[#00A0E3]" />
+            <h2 className="font-heading text-xl font-bold text-[#1A1612]">Business Profile</h2>
+          </div>
+          {!editingProfile && (
+            <button
+              onClick={() => setEditingProfile(true)}
+              className="flex items-center gap-2 bg-[#00A0E3] text-[#F9F7F2] px-4 py-2 rounded-md text-sm font-medium hover:bg-[#0086C0] transition-colors"
+            >
+              <Pencil className="w-4 h-4" /> Edit Profile
+            </button>
+          )}
+        </div>
+
+        {editingProfile ? (
+          <div className="mb-8">
+            <VendorProfileEdit
+              vendor={vendor}
+              onSaved={(updated) => {
+                setVendor(updated);
+                setEditingProfile(false);
+              }}
+              onCancel={() => setEditingProfile(false)}
             />
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-[#00A0E3] text-[#F9F7F2] text-xs font-medium px-2 py-1 rounded">{vendor.business_type}</span>
-                <span className="bg-[#F0EBE0] text-[#1A1612]/70 text-xs font-medium px-2 py-1 rounded">{vendor.sector}</span>
-              </div>
-              <h2 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">{vendor.business_name}</h2>
-              {vendor.owner_name && <p className="text-sm text-[#1A1612]/60">Owned by {vendor.owner_name}</p>}
-              {vendor.description && <p className="text-sm text-[#1A1612]/70 mt-2">{vendor.description}</p>}
-              <div className="flex gap-4 mt-3 text-xs text-[#1A1612]/60">
-                <span>{vendor.region}</span>
-                {vendor.phone && <span>{vendor.phone}</span>}
-                {vendor.email && <span>{vendor.email}</span>}
+          </div>
+        ) : (
+          <div className="bg-white border border-[#E8E2D5] rounded-lg p-6 mb-8">
+            <div className="flex flex-col md:flex-row gap-6">
+              <img
+                src={vendor.image || "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/e30aa9e2a_generated_140002be.png"}
+                alt={vendor.business_name}
+                className="w-full md:w-40 h-40 rounded-lg object-cover"
+              />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-[#00A0E3] text-[#F9F7F2] text-xs font-medium px-2 py-1 rounded">{vendor.business_type}</span>
+                  <span className="bg-[#F0EBE0] text-[#1A1612]/70 text-xs font-medium px-2 py-1 rounded">{vendor.sector}</span>
+                </div>
+                <h2 className="font-heading text-2xl font-bold text-[#1A1612] mb-1">{vendor.business_name}</h2>
+                {vendor.owner_name && <p className="text-sm text-[#1A1612]/60">Owned by {vendor.owner_name}</p>}
+                {vendor.description && <p className="text-sm text-[#1A1612]/70 mt-2">{vendor.description}</p>}
+                <div className="flex gap-4 mt-3 text-xs text-[#1A1612]/60">
+                  <span>{vendor.region}</span>
+                  {vendor.phone && <span>{vendor.phone}</span>}
+                  {vendor.email && <span>{vendor.email}</span>}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
