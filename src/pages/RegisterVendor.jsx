@@ -94,7 +94,7 @@ export default function RegisterVendor() {
           console.error("Failed to create vendor profile", e);
         }
       }
-      window.location.href = "/vendors";
+      window.location.href = "/vendor-dashboard";
     } catch (err) {
       setError(err.message || "Invalid verification code");
     } finally {

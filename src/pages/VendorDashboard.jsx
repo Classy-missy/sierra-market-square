@@ -137,7 +137,9 @@ export default function VendorDashboard() {
             <Store className="w-5 h-5 text-[#00A0E3]" />
             <div>
               <h1 className="font-heading text-lg font-bold">Vendor Dashboard</h1>
-              <p className="text-xs text-[#F9F7F2]/60">{vendor.business_name}</p>
+              <Link to={`/vendors/${vendor.id}`} className="text-xs text-[#F9F7F2]/60 hover:text-[#00A0E3] transition-colors">
+                {vendor.business_name}
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-4">

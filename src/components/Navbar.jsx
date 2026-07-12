@@ -68,14 +68,9 @@ export default function Navbar() {
           )}
 
           {isAuthenticated &&
-            <>
-              <Link to="/vendor-dashboard" className="flex items-center gap-1 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3] transition-colors">
-                <Store className="w-4 h-4" /> My Store
-              </Link>
               <Link to="/mentor-dashboard" className="flex items-center gap-1 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3] transition-colors">
                 <Heart className="w-4 h-4" /> My Mentoring
               </Link>
-            </>
           }
           {isAdmin &&
            <Link to="/admin" className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:text-[#0086C0]">
@@ -174,13 +169,6 @@ export default function Navbar() {
             </Link>
         )}
 
-          <Link
-          to="/vendor-dashboard"
-          onClick={() => setMobileOpen(false)}
-          className="flex items-center gap-1 py-1 text-sm font-medium text-[#1A1612]">
-          
-              <Store className="w-4 h-4" /> My Store
-            </Link>
           <Link
           to="/mentor-dashboard"
           onClick={() => setMobileOpen(false)}
