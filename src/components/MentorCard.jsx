@@ -18,7 +18,7 @@ export default function MentorCard({ mentor, canBook = false }) {
       <div className="bg-[#F9F7F2] rounded-lg overflow-hidden border border-[#E8E2D5] hover:shadow-lg transition-shadow flex flex-col">
         <div className="relative overflow-hidden h-64">
           <img
-            src={mentor.image || "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/d8a6b9149_generated_b70b6a63.png"}
+            src={mentor.image || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=faces"}
             alt={mentor.name}
             className="w-full h-full object-cover object-top"
           />
