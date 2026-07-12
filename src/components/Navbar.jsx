@@ -14,10 +14,10 @@ export default function Navbar() {
   const [dashboardPath, setDashboardPath] = useState("/vendor-dashboard");
 
   useEffect(() => {
-    if (!isAuthenticated || !user?.id) return;
+    if (!isAuthenticated || !user?.email) return;
     Promise.all([
-      base44.entities.Vendor.filter({ created_by_id: user.id }).catch(() => []),
-      base44.entities.Mentor.filter({ created_by_id: user.id }).catch(() => []),
+      base44.entities.Vendor.filter({ email: user.email }).catch(() => []),
+      base44.entities.Mentor.filter({ email: user.email }).catch(() => []),
     ]).then(([vendors, mentors]) => {
       if (mentors.length > 0) setDashboardPath("/mentor-dashboard");
       else if (vendors.length > 0) setDashboardPath("/vendor-dashboard");
