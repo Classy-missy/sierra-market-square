@@ -81,11 +81,6 @@ export default function Navbar() {
             </Link>
           )}
 
-          {isAuthenticated &&
-              <Link to="/mentor-dashboard" className="flex items-center gap-1 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3] transition-colors">
-                <Heart className="w-4 h-4" /> My Mentoring
-              </Link>
-          }
           {isAdmin &&
            <Link to="/admin" className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:text-[#0086C0]">
               <Shield className="w-4 h-4" /> Admin
@@ -183,13 +178,6 @@ export default function Navbar() {
             </Link>
         )}
 
-          <Link
-          to="/mentor-dashboard"
-          onClick={() => setMobileOpen(false)}
-          className="flex items-center gap-1 py-1 text-sm font-medium text-[#1A1612]">
-          
-              <Heart className="w-4 h-4" /> My Mentoring
-            </Link>
           {isAdmin &&
         <Link
           to="/admin"
