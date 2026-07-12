@@ -15,16 +15,13 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!isAuthenticated || !user?.email) return;
-    if (isAdmin) {
-      setDashboardPath("/admin");
-      return;
-    }
     Promise.all([
       base44.entities.Vendor.filter({ email: user.email }).catch(() => []),
       base44.entities.Mentor.filter({ email: user.email }).catch(() => []),
     ]).then(([vendors, mentors]) => {
       if (mentors.length > 0) setDashboardPath("/mentor-dashboard");
       else if (vendors.length > 0) setDashboardPath("/vendor-dashboard");
+      else if (isAdmin) setDashboardPath("/admin");
       else setDashboardPath("/vendor-dashboard");
     });
   }, [isAuthenticated, user]);
