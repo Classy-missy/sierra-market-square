@@ -20,7 +20,7 @@ export default function MentorCard({ mentor, canBook = false }) {
           <img
             src={mentor.image || "https://media.base44.com/images/public/6a4f83dffc6191b5376288ac/d8a6b9149_generated_b70b6a63.png"}
             alt={mentor.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
           <div className={`absolute top-3 right-3 px-2 py-1 rounded text-xs font-medium ${availClass}`}>
             {mentor.availability || "Available"}
