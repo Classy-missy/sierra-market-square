@@ -18,6 +18,8 @@ import VendorDetail from "@/pages/VendorDetail";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminRoute from "@/components/AdminRoute";
 import Login from "@/pages/Login";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 import About from "@/pages/About";
 import Blog from "@/pages/Blog";
 import VendorDashboard from "@/pages/VendorDashboard";
@@ -51,6 +53,8 @@ const AuthenticatedApp = () => {
     <Routes>
       {/* Add your page Route elements here */}
       <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<AdminDashboard />} />
       </Route>
