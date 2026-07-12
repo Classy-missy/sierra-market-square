@@ -262,7 +262,11 @@ export default function AdminDashboard() {
                     <tbody>
                       {vendors.map((v) => (
                         <tr key={v.id} className="border-t border-[#E8E2D5] hover:bg-[#F9F7F2]">
-                          <td className="px-4 py-3 font-medium text-[#1A1612]">{v.business_name}</td>
+                          <td className="px-4 py-3 font-medium text-[#1A1612]">
+                            <Link to={`/vendors/${v.id}`} className="text-[#00A0E3] hover:underline">
+                              {v.business_name}
+                            </Link>
+                          </td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.business_type}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.sector || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.region || "—"}</td>

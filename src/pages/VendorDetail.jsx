@@ -32,7 +32,7 @@ export default function VendorDetail() {
       .finally(() => setLoading(false));
   }, [id, isAuthenticated]);
 
-  const isOwner = vendor && user && (vendor.email === user.email || vendor.created_by_id === user.id);
+  const isOwner = vendor && user && (vendor.email === user.email || vendor.created_by_id === user.id || user.role === "admin");
 
   if (!isAuthenticated) {
     return (
