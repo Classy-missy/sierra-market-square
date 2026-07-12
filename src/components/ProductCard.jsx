@@ -59,16 +59,20 @@ export default function ProductCard({ product, disableNavigation }) {
               <span className="text-xs text-[#1A1612]/50">{product.business_type}</span>
             </div>
             <h3 className="font-heading text-lg font-bold text-[#1A1612] mb-1">{product.name}</h3>
-            {product.vendor_name && (
+            {product.vendor_name && isAuthenticated && (
               <p className="text-xs text-[#1A1612]/60 mb-2">by {product.vendor_name}</p>
             )}
             {product.description && (
               <p className="text-xs text-[#1A1612]/50 line-clamp-1 mb-2">{product.description}</p>
             )}
             <div className="flex items-center justify-between mt-2">
-              <span className="font-heading text-xl font-bold text-[#00A0E3]">
-                NLe {Number(product.price || 0).toFixed(2)}
-              </span>
+              {isAuthenticated ? (
+                <span className="font-heading text-xl font-bold text-[#00A0E3]">
+                  NLe {Number(product.price || 0).toFixed(2)}
+                </span>
+              ) : (
+                <span className="text-xs text-[#1A1612]/50">Sign in for price</span>
+              )}
               <span className="text-xs text-[#1A1612]/50">{product.unit}</span>
             </div>
           </div>

@@ -2,16 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import ProductCard from "@/components/ProductCard";
-import { MessageCircle, Mail, Globe, MapPin, ArrowLeft, Package } from "lucide-react";
+import { MessageCircle, Mail, Globe, MapPin, ArrowLeft, Package, Lock } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import AuthPromptModal from "@/components/AuthPromptModal";
 
 export default function VendorDetail() {
   const { id } = useParams();
+  const { isAuthenticated } = useAuth();
   const [vendor, setVendor] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !isAuthenticated) {
+      setLoading(false);
+      return;
+    }
     base44.entities.Vendor.get(id)
       .then(async (v) => {
         setVendor(v);
@@ -23,6 +29,19 @@ export default function VendorDetail() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [id]);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#00A0E3]/10 mb-4">
+          <Lock className="w-8 h-8 text-[#00A0E3]" />
+        </div>
+        <h2 className="font-heading text-xl font-bold text-[#1A1612] mb-2">Sign In Required</h2>
+        <p className="text-sm text-[#1A1612]/60 mb-6">Please sign in to view vendor details.</p>
+        <AuthPromptModal isOpen={true} onClose={() => { window.location.href = "/"; }} />
+      </div>
+    );
+  }
 
   if (loading) {
     return (

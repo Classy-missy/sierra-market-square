@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar } from "lucide-react";
+import { Calendar, Lock } from "lucide-react";
 import BookingModal from "@/components/BookingModal";
 
 const availabilityStyles = {
@@ -8,7 +8,7 @@ const availabilityStyles = {
   Full: "bg-[#1A1612] text-[#F9F7F2]/60",
 };
 
-export default function MentorCard({ mentor }) {
+export default function MentorCard({ mentor, canBook = false }) {
   const availClass = availabilityStyles[mentor.availability] || availabilityStyles.Available;
   const [bookingOpen, setBookingOpen] = useState(false);
   const isFull = mentor.availability === "Full";
@@ -43,21 +43,30 @@ export default function MentorCard({ mentor }) {
           {mentor.bio && (
             <p className="text-sm text-[#1A1612]/70 line-clamp-3 flex-1">{mentor.bio}</p>
           )}
-          <button
-            onClick={() => setBookingOpen(true)}
-            disabled={isFull}
-            className={`mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
-              isFull
-                ? "bg-[#E8E2D5] text-[#1A1612]/40 cursor-not-allowed"
-                : "bg-[#00A0E3] text-[#F9F7F2] hover:bg-[#0086C0]"
-            }`}
-          >
-            <Calendar className="w-4 h-4" />
-            {isFull ? "Currently Unavailable" : "Book a Session"}
-          </button>
+          {canBook ? (
+            <button
+              onClick={() => setBookingOpen(true)}
+              disabled={isFull}
+              className={`mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                isFull
+                  ? "bg-[#E8E2D5] text-[#1A1612]/40 cursor-not-allowed"
+                  : "bg-[#00A0E3] text-[#F9F7F2] hover:bg-[#0086C0]"
+              }`}
+            >
+              <Calendar className="w-4 h-4" />
+              {isFull ? "Currently Unavailable" : "Book a Session"}
+            </button>
+          ) : (
+            <div className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-sm font-medium bg-[#F0EBE0] text-[#1A1612]/50">
+              <Lock className="w-4 h-4" />
+              Only vendors can book sessions
+            </div>
+          )}
         </div>
       </div>
-      <BookingModal mentor={mentor} isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      {canBook && (
+        <BookingModal mentor={mentor} isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      )}
     </>
   );
 }

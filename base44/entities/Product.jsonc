@@ -23,6 +23,11 @@
       "type": "number",
       "title": "Price (NLe)"
     },
+    "stock": {
+      "type": "number",
+      "title": "Stock Quantity",
+      "default": 0
+    },
     "unit": {
       "type": "string",
       "title": "Unit",

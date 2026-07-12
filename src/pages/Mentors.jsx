@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import MentorCard from "@/components/MentorCard";
-import { Heart } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import { Heart, Store } from "lucide-react";
 
 export default function Mentors() {
+  const { user, isAuthenticated } = useAuth();
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isVendor, setIsVendor] = useState(false);
 
   useEffect(() => {
     base44.entities.Mentor.list()
@@ -14,6 +17,16 @@ export default function Mentors() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      base44.entities.Vendor.filter({ email: user.email })
+        .then((v) => setIsVendor(v.length > 0))
+        .catch(() => setIsVendor(false));
+    }
+  }, [isAuthenticated, user]);
+
+  const canBook = isAuthenticated && isVendor;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
@@ -25,6 +38,14 @@ export default function Mentors() {
           Connect with experienced mentors who guide and empower the next generation of female
           entrepreneurs in Sierra Leone.
         </p>
+        {!canBook && (
+          <div className="mt-4 inline-flex items-center gap-2 bg-[#00A0E3]/5 border border-[#00A0E3]/20 rounded-lg px-4 py-2">
+            <Store className="w-4 h-4 text-[#00A0E3]" />
+            <p className="text-sm text-[#1A1612]/70">
+              Only registered vendors can book mentoring sessions.
+            </p>
+          </div>
+        )}
       </div>
 
       {loading ? (
@@ -36,7 +57,7 @@ export default function Mentors() {
       ) : mentors.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mentors.map((mentor) => (
-            <MentorCard key={mentor.id} mentor={mentor} />
+            <MentorCard key={mentor.id} mentor={mentor} canBook={canBook} />
           ))}
         </div>
       ) : (
