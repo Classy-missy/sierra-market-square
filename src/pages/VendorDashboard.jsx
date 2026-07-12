@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Store, Package, Plus, Save, Loader2, LogOut, ArrowLeft, Edit, Pencil } from "lucide-react";
+import { Store, Package, Plus, Save, Loader2, LogOut, Pencil } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/lib/constants";
 import VendorProfileEdit from "@/components/VendorProfileEdit";
 
@@ -32,8 +32,8 @@ export default function VendorDashboard() {
   const [formError, setFormError] = useState("");
 
   useEffect(() => {
-    if (!user?.email) return;
-    base44.entities.Vendor.filter({ email: user.email })
+    if (!user?.id) return;
+    base44.entities.Vendor.filter({ created_by_id: user.id })
       .then(async (vendors) => {
         if (vendors.length > 0) {
           setVendor(vendors[0]);

@@ -24,6 +24,9 @@ export default function VendorDetail() {
     base44.entities.Vendor.get(id)
       .then(async (v) => {
         setVendor(v);
+        if (user && v.created_by_id === user.id) {
+          setIsOwner(true);
+        }
         const matched = await base44.entities.Product.filter({
           vendor_name: v.business_name,
         });
@@ -31,15 +34,7 @@ export default function VendorDetail() {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, [id, isAuthenticated]);
-
-  useEffect(() => {
-    if (vendor && user) {
-      if (vendor.email === user.email || vendor.created_by_id === user.id) {
-        setIsOwner(true);
-      }
-    }
-  }, [vendor, user]);
+  }, [id]);
 
   if (!isAuthenticated) {
     return (
