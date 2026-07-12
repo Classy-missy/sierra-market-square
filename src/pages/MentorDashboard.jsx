@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
-import { Heart, Calendar, Clock, Users, LogOut, CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import { Heart, Calendar, Clock, Users, LogOut, CheckCircle, XCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const statusConfig = {
   pending: { icon: AlertCircle, color: "text-[#00A0E3]", bg: "bg-[#00A0E3]/10", label: "Pending" },
@@ -47,7 +47,7 @@ export default function MentorDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F9F7F2]">
-        <div className="w-8 h-8 border-4 border-[#E8E2D5] border-t-[#00A0E3] rounded-full animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#00A0E3] animate-spin" />
       </div>
     );
   }
@@ -82,6 +82,45 @@ export default function MentorDashboard() {
     { label: "Confirmed", value: confirmedCount, icon: CheckCircle, color: "text-[#2D4F1E]" },
     { label: "Businesses Mentored", value: uniqueBusinesses, icon: Users, color: "text-[#2D4F1E]" },
   ];
+
+  if (!mentor.approved) {
+    return (
+      <div className="min-h-screen bg-[#F9F7F2]">
+        <div className="bg-[#0D1B2A] text-[#F9F7F2]">
+          <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Heart className="w-5 h-5 text-[#00A0E3]" />
+              <div>
+                <h1 className="font-heading text-lg font-bold">Mentor Dashboard</h1>
+                <p className="text-xs text-[#F9F7F2]/60">{mentor.name}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => logout()}
+              className="flex items-center gap-1 text-xs text-[#F9F7F2]/70 hover:text-[#00A0E3] transition-colors"
+            >
+              <LogOut className="w-4 h-4" /> Logout
+            </button>
+          </div>
+        </div>
+        <div className="max-w-md mx-auto px-4 py-20 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#00A0E3]/10 mb-4">
+            <Clock className="w-8 h-8 text-[#00A0E3]" />
+          </div>
+          <h2 className="font-heading text-xl font-bold text-[#1A1612] mb-2">Pending Admin Approval</h2>
+          <p className="text-sm text-[#1A1612]/60 mb-6">
+            Thank you for registering as a mentor. An administrator needs to approve your profile before you can access your dashboard and start receiving booking requests.
+          </p>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 bg-[#00A0E3] text-[#F9F7F2] px-6 py-3 rounded-md font-medium hover:bg-[#0086C0] transition-colors"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F9F7F2]">

@@ -96,12 +96,13 @@ export default function RegisterMentor() {
             email,
             phone,
             availability: "Available",
+            approved: false,
           });
         } catch (e) {
           console.error("Failed to create mentor profile", e);
         }
       }
-      window.location.href = "/mentors";
+      window.location.href = "/mentor-dashboard";
     } catch (err) {
       setError(err.message || "Invalid verification code");
     } finally {

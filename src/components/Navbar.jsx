@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, User, Heart, Globe, Shield, Store, LogOut } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import { base44 } from "@/api/base44Client";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -10,6 +11,19 @@ export default function Navbar() {
   const location = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
   const isAdmin = user?.role === "admin";
+  const [dashboardPath, setDashboardPath] = useState("/vendor-dashboard");
+
+  useEffect(() => {
+    if (!isAuthenticated || !user?.email) return;
+    Promise.all([
+      base44.entities.Vendor.filter({ email: user.email }).catch(() => []),
+      base44.entities.Mentor.filter({ email: user.email }).catch(() => []),
+    ]).then(([vendors, mentors]) => {
+      if (mentors.length > 0) setDashboardPath("/mentor-dashboard");
+      else if (vendors.length > 0) setDashboardPath("/vendor-dashboard");
+      else setDashboardPath("/vendor-dashboard");
+    });
+  }, [isAuthenticated, user]);
 
   const navItems = [
   { label: "Home", path: "/" },
@@ -80,12 +94,12 @@ export default function Navbar() {
 
           {isAuthenticated ?
           <div className="flex items-center gap-3 pl-3 ml-2 border-l border-[#E8E2D5]">
-              <Link to="/admin" className="flex items-center gap-2 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3] transition-colors">
-                <div className="w-8 h-8 rounded-full bg-[#00A0E3]/10 flex items-center justify-center">
-                  <User className="w-4 h-4 text-[#00A0E3]" />
-                </div>
-                <span className="max-w-[120px] truncate">{displayName}</span>
-              </Link>
+              <Link to={dashboardPath} className="flex items-center gap-2 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3] transition-colors">
+                 <div className="w-8 h-8 rounded-full bg-[#00A0E3]/10 flex items-center justify-center">
+                   <User className="w-4 h-4 text-[#00A0E3]" />
+                 </div>
+                 <span className="max-w-[120px] truncate">{displayName}</span>
+               </Link>
               <button
               onClick={handleLogout}
               className="flex items-center gap-1 text-sm font-medium text-[#1A1612]/60 hover:text-[#00A0E3] transition-colors">
@@ -188,12 +202,12 @@ export default function Navbar() {
 
           {isAuthenticated ?
         <div className="pt-3 border-t border-[#E8E2D5] space-y-3">
-              <div className="flex items-center gap-2 text-sm font-medium text-[#1A1612]">
+              <Link to={dashboardPath} onClick={() => setMobileOpen(false)} className="flex items-center gap-2 text-sm font-medium text-[#1A1612]">
                 <div className="w-8 h-8 rounded-full bg-[#00A0E3]/10 flex items-center justify-center">
                   <User className="w-4 h-4 text-[#00A0E3]" />
                 </div>
                 <span className="truncate">{displayName}</span>
-              </div>
+              </Link>
               <button
             onClick={handleLogout}
             className="flex items-center gap-1 text-sm font-medium text-[#1A1612]/60 hover:text-[#00A0E3]">

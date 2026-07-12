@@ -13,7 +13,7 @@ export default function Mentors() {
 
   useEffect(() => {
     base44.entities.Mentor.list()
-      .then(setMentors)
+      .then((all) => setMentors(all.filter((m) => m.approved)))
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);

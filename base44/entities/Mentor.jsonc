@@ -38,6 +38,11 @@
         "Full"
       ],
       "default": "Available"
+    },
+    "approved": {
+      "type": "boolean",
+      "title": "Approved",
+      "default": false
     }
   },
   "required": [

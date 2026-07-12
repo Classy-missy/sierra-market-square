@@ -4,7 +4,7 @@ import { base44 } from "@/api/base44Client";
 import VendorForm from "@/components/admin/VendorForm";
 import ProductForm from "@/components/admin/ProductForm";
 import { exportToCSV } from "@/lib/exportUtils";
-import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus } from "lucide-react";
+import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 
 export default function AdminDashboard() {
@@ -15,6 +15,7 @@ export default function AdminDashboard() {
   const [mentors, setMentors] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [approving, setApproving] = useState(null);
   const { user, logout } = useAuth();
 
   const loadData = async () => {
@@ -106,6 +107,18 @@ export default function AdminDashboard() {
       ],
       data: mentors,
     },
+  };
+
+  const toggleMentorApproval = async (mentorId, currentApproved) => {
+    setApproving(mentorId);
+    try {
+      await base44.entities.Mentor.update(mentorId, { approved: !currentApproved });
+      await loadData();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setApproving(null);
+    }
   };
 
   const handleExport = (tabId) => {
@@ -323,6 +336,8 @@ export default function AdminDashboard() {
                         <th className="text-left px-4 py-3 font-medium">Email</th>
                         <th className="text-left px-4 py-3 font-medium">Phone</th>
                         <th className="text-left px-4 py-3 font-medium">Availability</th>
+                        <th className="text-left px-4 py-3 font-medium">Status</th>
+                        <th className="text-left px-4 py-3 font-medium">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -333,6 +348,28 @@ export default function AdminDashboard() {
                           <td className="px-4 py-3 text-[#1A1612]/70">{m.email || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{m.phone || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{m.availability || "—"}</td>
+                          <td className="px-4 py-3">
+                            <span className={`text-xs px-2 py-1 rounded-full font-medium ${m.approved ? "bg-[#2D4F1E]/10 text-[#2D4F1E]" : "bg-[#00A0E3]/10 text-[#00A0E3]"}`}>
+                              {m.approved ? "Approved" : "Pending"}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <button
+                              onClick={() => toggleMentorApproval(m.id, m.approved)}
+                              disabled={approving === m.id}
+                              className={`flex items-center gap-1 text-sm font-medium ${
+                                m.approved ? "text-red-500 hover:underline" : "text-[#2D4F1E] hover:underline"
+                              } disabled:opacity-50`}
+                            >
+                              {approving === m.id ? (
+                                "..."
+                              ) : m.approved ? (
+                                <><XCircle className="w-4 h-4" /> Revoke</>
+                              ) : (
+                                <><CheckCircle className="w-4 h-4" /> Approve</>
+                              )}
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
