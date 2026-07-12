@@ -15,6 +15,10 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!isAuthenticated || !user?.email) return;
+    if (isAdmin) {
+      setDashboardPath("/admin");
+      return;
+    }
     Promise.all([
       base44.entities.Vendor.filter({ email: user.email }).catch(() => []),
       base44.entities.Mentor.filter({ email: user.email }).catch(() => []),
@@ -81,26 +85,23 @@ export default function Navbar() {
             </Link>
           )}
 
-          {isAdmin &&
-           <Link to="/admin" className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:text-[#0086C0]">
-              <Shield className="w-4 h-4" /> Admin
-            </Link>
-          }
-
           {isAuthenticated ?
           <div className="flex items-center gap-3 pl-3 ml-2 border-l border-[#E8E2D5]">
               <Link to={dashboardPath} className="flex items-center gap-2 text-sm font-medium text-[#1A1612] hover:text-[#00A0E3] transition-colors">
                  <div className="w-8 h-8 rounded-full bg-[#00A0E3]/10 flex items-center justify-center">
-                   <User className="w-4 h-4 text-[#00A0E3]" />
-                 </div>
-                 <span className="max-w-[120px] truncate">{displayName}</span>
-               </Link>
+                    {isAdmin ? <Shield className="w-4 h-4 text-[#00A0E3]" /> : <User className="w-4 h-4 text-[#00A0E3]" />}
+                  </div>
+                  <div className="flex flex-col">
+                    {isAdmin && <span className="text-[10px] font-bold uppercase tracking-wide text-[#00A0E3] leading-none mb-0.5">Admin</span>}
+                    <span className="max-w-[120px] truncate text-sm font-medium leading-tight">{displayName}</span>
+                  </div>
+                </Link>
               <button
               onClick={handleLogout}
               className="flex items-center gap-1 text-sm font-medium text-[#1A1612]/60 hover:text-[#00A0E3] transition-colors">
-              
-                <LogOut className="w-4 h-4" /> Logout
-              </button>
+
+                 <LogOut className="w-4 h-4" /> Logout
+               </button>
             </div> :
 
           <>
@@ -178,23 +179,16 @@ export default function Navbar() {
             </Link>
         )}
 
-          {isAdmin &&
-        <Link
-          to="/admin"
-          onClick={() => setMobileOpen(false)}
-          className="flex items-center gap-1 py-1 text-sm font-medium text-[#00A0E3]">
-          
-              <Shield className="w-4 h-4" /> Admin Dashboard
-            </Link>
-        }
-
           {isAuthenticated ?
         <div className="pt-3 border-t border-[#E8E2D5] space-y-3">
               <Link to={dashboardPath} onClick={() => setMobileOpen(false)} className="flex items-center gap-2 text-sm font-medium text-[#1A1612]">
                 <div className="w-8 h-8 rounded-full bg-[#00A0E3]/10 flex items-center justify-center">
-                  <User className="w-4 h-4 text-[#00A0E3]" />
+                  {isAdmin ? <Shield className="w-4 h-4 text-[#00A0E3]" /> : <User className="w-4 h-4 text-[#00A0E3]" />}
                 </div>
-                <span className="truncate">{displayName}</span>
+                <div className="flex flex-col">
+                  {isAdmin && <span className="text-[10px] font-bold uppercase tracking-wide text-[#00A0E3] leading-none mb-0.5">Admin</span>}
+                  <span className="truncate text-sm font-medium leading-tight">{displayName}</span>
+                </div>
               </Link>
               <button
             onClick={handleLogout}
