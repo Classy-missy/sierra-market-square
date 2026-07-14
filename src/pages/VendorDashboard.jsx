@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Store, Package, Plus, Save, Loader2, LogOut, Pencil } from "lucide-react";
+import { Store, Package, Plus, Save, Loader2, LogOut, Pencil, Clock } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/lib/constants";
 import VendorProfileEdit from "@/components/VendorProfileEdit";
 
@@ -129,6 +129,45 @@ export default function VendorDashboard() {
             className="inline-flex items-center gap-2 bg-[#00A0E3] text-[#F9F7F2] px-6 py-3 rounded-md font-medium hover:bg-[#0086C0] transition-colors"
           >
             <Store className="w-4 h-4" /> Register as Vendor
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!vendor.approved) {
+    return (
+      <div className="min-h-screen bg-[#F9F7F2]">
+        <div className="bg-[#0D1B2A] text-[#F9F7F2]">
+          <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Store className="w-5 h-5 text-[#00A0E3]" />
+              <div>
+                <h1 className="font-heading text-lg font-bold">Vendor Dashboard</h1>
+                <p className="text-xs text-[#F9F7F2]/60">{vendor.business_name}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => logout()}
+              className="flex items-center gap-1 text-xs text-[#F9F7F2]/70 hover:text-[#00A0E3] transition-colors"
+            >
+              <LogOut className="w-4 h-4" /> Logout
+            </button>
+          </div>
+        </div>
+        <div className="max-w-md mx-auto px-4 py-20 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#00A0E3]/10 mb-4">
+            <Clock className="w-8 h-8 text-[#00A0E3]" />
+          </div>
+          <h2 className="font-heading text-xl font-bold text-[#1A1612] mb-2">Pending Admin Approval</h2>
+          <p className="text-sm text-[#1A1612]/60 mb-6">
+            Thank you for registering your business. An administrator needs to approve your vendor profile before you can access your dashboard and start listing products.
+          </p>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 bg-[#00A0E3] text-[#F9F7F2] px-6 py-3 rounded-md font-medium hover:bg-[#0086C0] transition-colors"
+          >
+            Back to Home
           </Link>
         </div>
       </div>

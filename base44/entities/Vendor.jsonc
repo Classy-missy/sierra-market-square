@@ -78,6 +78,11 @@
     "owner_name": {
       "type": "string",
       "title": "Owner Name"
+    },
+    "approved": {
+      "type": "boolean",
+      "title": "Approved",
+      "default": false
     }
   },
   "required": [

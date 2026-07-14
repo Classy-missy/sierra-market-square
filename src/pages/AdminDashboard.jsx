@@ -139,6 +139,18 @@ export default function AdminDashboard() {
     }
   };
 
+  const toggleVendorApproval = async (vendorId, currentApproved) => {
+    setApproving(vendorId);
+    try {
+      await base44.entities.Vendor.update(vendorId, { approved: !currentApproved });
+      await loadData();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setApproving(null);
+    }
+  };
+
   const handleExport = (tabId) => {
     const config = exportConfigs[tabId];
     if (config) exportToCSV(config.data, config.filename, config.columns);
@@ -275,6 +287,7 @@ export default function AdminDashboard() {
                         <th className="text-left px-4 py-3 font-medium">Owner</th>
                         <th className="text-left px-4 py-3 font-medium">Phone</th>
                         <th className="text-left px-4 py-3 font-medium">Email</th>
+                        <th className="text-left px-4 py-3 font-medium">Status</th>
                         <th className="text-left px-4 py-3 font-medium">Action</th>
                       </tr>
                     </thead>
@@ -293,13 +306,35 @@ export default function AdminDashboard() {
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.phone || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.email || "—"}</td>
                           <td className="px-4 py-3">
-                            <button
-                              onClick={() => handleDeleteVendor(v)}
-                              disabled={deleting === v.id}
-                              className="flex items-center gap-1 text-sm font-medium text-red-500 hover:text-red-700 disabled:opacity-50"
-                            >
-                              {deleting === v.id ? "..." : <><Trash2 className="w-4 h-4" /> Delete</>}
-                            </button>
+                            <span className={`text-xs px-2 py-1 rounded-full font-medium ${v.approved ? "bg-[#2D4F1E]/10 text-[#2D4F1E]" : "bg-[#00A0E3]/10 text-[#00A0E3]"}`}>
+                              {v.approved ? "Approved" : "Pending"}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-3">
+                              <button
+                                onClick={() => toggleVendorApproval(v.id, v.approved)}
+                                disabled={approving === v.id}
+                                className={`flex items-center gap-1 text-sm font-medium ${
+                                  v.approved ? "text-red-500 hover:underline" : "text-[#2D4F1E] hover:underline"
+                                } disabled:opacity-50`}
+                              >
+                                {approving === v.id ? (
+                                  "..."
+                                ) : v.approved ? (
+                                  <><XCircle className="w-4 h-4" /> Revoke</>
+                                ) : (
+                                  <><CheckCircle className="w-4 h-4" /> Approve</>
+                                )}
+                              </button>
+                              <button
+                                onClick={() => handleDeleteVendor(v)}
+                                disabled={deleting === v.id}
+                                className="flex items-center gap-1 text-sm font-medium text-red-500 hover:text-red-700 disabled:opacity-50"
+                              >
+                                {deleting === v.id ? "..." : <><Trash2 className="w-4 h-4" /> Delete</>}
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}

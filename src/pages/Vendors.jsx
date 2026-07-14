@@ -20,7 +20,7 @@ export default function Vendors() {
       return;
     }
     base44.entities.Vendor.list()
-      .then(setVendors)
+      .then((all) => setVendors(all.filter((v) => v.approved)))
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [isAuthenticated]);
