@@ -29,4 +29,27 @@ export const REGIONS = [
   "Western Area",
 ];
 
-export const PRODUCT_CATEGORIES = ["Tubers", "Vegetables", "Grains", "Fruits", "Spices", "Oils"];
+export const PRODUCT_CATEGORIES = [
+  "Tubers",
+  "Vegetables",
+  "Grains",
+  "Fruits",
+  "Spices",
+  "Oils",
+  "Beverages",
+  "Snacks",
+  "Baked Goods",
+  "Clothing",
+  "Footwear",
+  "Accessories",
+  "Textiles",
+  "Cosmetics",
+  "Soaps & Skincare",
+  "Herbal Products",
+  "Jewelry",
+  "Beadwork",
+  "Baskets",
+  "Pottery",
+  "Woodwork",
+  "Services",
+];
