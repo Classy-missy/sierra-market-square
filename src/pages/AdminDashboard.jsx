@@ -20,16 +20,19 @@ export default function AdminDashboard() {
 
   const loadData = async () => {
     try {
-      const [v, p, m, u] = await Promise.all([
+      const results = await Promise.allSettled([
         base44.entities.Vendor.list(),
         base44.entities.Product.list(),
         base44.entities.Mentor.list(),
         base44.entities.User.list(),
       ]);
-      setVendors(v);
-      setProducts(p);
-      setMentors(m);
-      setUsers(u);
+      if (results[0].status === "fulfilled") setVendors(results[0].value);
+      if (results[1].status === "fulfilled") setProducts(results[1].value);
+      if (results[2].status === "fulfilled") setMentors(results[2].value);
+      if (results[3].status === "fulfilled") setUsers(results[3].value);
+      results.forEach((r, i) => {
+        if (r.status === "rejected") console.error(`AdminDashboard load ${i} failed:`, r.reason);
+      });
     } catch (err) {
       console.error(err);
     } finally {
