@@ -6,20 +6,36 @@ import { Label } from "@/components/ui/label";
 import { Upload, Loader2, Check, Package } from "lucide-react";
 import { BUSINESS_TYPES, SECTORS, REGIONS, PRODUCT_CATEGORIES } from "@/lib/constants";
 
-export default function ProductForm({ onCreated }) {
+export default function ProductForm({ onCreated, product, onUpdated }) {
+  const isEdit = !!product;
   const [vendors, setVendors] = useState([]);
-  const [form, setForm] = useState({
-    name: "",
-    category: "Vegetables",
-    price: "",
-    unit: "per bag",
-    description: "",
-    vendor_name: "",
-    business_type: "SME",
-    sector: "Retail & Trading",
-    region: "Western Area",
-    image: "",
-  });
+  const [form, setForm] = useState(
+    isEdit
+      ? {
+          name: product.name || "",
+          category: product.category || "Vegetables",
+          price: product.price ?? "",
+          unit: product.unit || "per bag",
+          description: product.description || "",
+          vendor_name: product.vendor_name || "",
+          business_type: product.business_type || "SME",
+          sector: product.sector || "Retail & Trading",
+          region: product.region || "Western Area",
+          image: product.image || "",
+        }
+      : {
+          name: "",
+          category: "Vegetables",
+          price: "",
+          unit: "per bag",
+          description: "",
+          vendor_name: "",
+          business_type: "SME",
+          sector: "Retail & Trading",
+          region: "Western Area",
+          image: "",
+        }
+  );
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -65,24 +81,30 @@ export default function ProductForm({ onCreated }) {
     }
     setLoading(true);
     try {
-      await base44.entities.Product.create({ ...form, price: Number(form.price) });
-      setSuccess(true);
-      setForm({
-        name: "",
-        category: "Vegetables",
-        price: "",
-        unit: "per bag",
-        description: "",
-        vendor_name: "",
-        business_type: "SME",
-        sector: "Retail & Trading",
-        region: "Western Area",
-        image: "",
-      });
-      onCreated?.();
+      if (isEdit) {
+        await base44.entities.Product.update(product.id, { ...form, price: Number(form.price) });
+        setSuccess(true);
+        onUpdated?.();
+      } else {
+        await base44.entities.Product.create({ ...form, price: Number(form.price) });
+        setSuccess(true);
+        setForm({
+          name: "",
+          category: "Vegetables",
+          price: "",
+          unit: "per bag",
+          description: "",
+          vendor_name: "",
+          business_type: "SME",
+          sector: "Retail & Trading",
+          region: "Western Area",
+          image: "",
+        });
+        onCreated?.();
+      }
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
-      setError(err.message || "Failed to create product.");
+      setError(err.message || `Failed to ${isEdit ? "update" : "create"} product.`);
     } finally {
       setLoading(false);
     }
@@ -185,7 +207,7 @@ export default function ProductForm({ onCreated }) {
       </div>
 
       <Button type="submit" className="w-full h-11 bg-[#00A0E3] hover:bg-[#0086C0] font-medium" disabled={loading || uploading}>
-        {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Adding...</> : "Add Product"}
+        {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {isEdit ? "Saving..." : "Adding..."}</> : isEdit ? "Save Changes" : "Add Product"}
       </Button>
     </form>
   );

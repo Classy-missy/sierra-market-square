@@ -4,7 +4,8 @@ import { base44 } from "@/api/base44Client";
 import VendorForm from "@/components/admin/VendorForm";
 import ProductForm from "@/components/admin/ProductForm";
 import { exportToCSV } from "@/lib/exportUtils";
-import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle, Trash2 } from "lucide-react";
+import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle, Trash2, Pencil } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAuth } from "@/lib/AuthContext";
 
 export default function AdminDashboard() {
@@ -17,6 +18,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [approving, setApproving] = useState(null);
   const [deleting, setDeleting] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null);
   const { user, logout } = useAuth();
 
   const loadData = async () => {
@@ -136,6 +138,20 @@ export default function AdminDashboard() {
       console.error(err);
     } finally {
       setApproving(null);
+    }
+  };
+
+  const handleDeleteProduct = async (product) => {
+    if (!window.confirm(`Delete product "${product.name}"? This cannot be undone.`)) return;
+    setDeleting(product.id);
+    try {
+      await base44.entities.Product.delete(product.id);
+      setProducts((prev) => prev.filter((p) => p.id !== product.id));
+    } catch (err) {
+      console.error("Delete product failed:", err);
+      alert("Failed to delete product. You may not have permission.");
+    } finally {
+      setDeleting(null);
     }
   };
 
@@ -353,6 +369,7 @@ export default function AdminDashboard() {
                         <th className="text-left px-4 py-3 font-medium">Vendor</th>
                         <th className="text-left px-4 py-3 font-medium">Type</th>
                         <th className="text-left px-4 py-3 font-medium">Region</th>
+                        <th className="text-left px-4 py-3 font-medium">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -365,6 +382,23 @@ export default function AdminDashboard() {
                           <td className="px-4 py-3 text-[#1A1612]/70">{p.vendor_name || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{p.business_type}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{p.region || "—"}</td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-3">
+                              <button
+                                onClick={() => setEditingProduct(p)}
+                                className="flex items-center gap-1 text-sm font-medium text-[#00A0E3] hover:underline"
+                              >
+                                <Pencil className="w-4 h-4" /> Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteProduct(p)}
+                                disabled={deleting === p.id}
+                                className="flex items-center gap-1 text-sm font-medium text-red-500 hover:text-red-700 disabled:opacity-50"
+                              >
+                                {deleting === p.id ? "..." : <><Trash2 className="w-4 h-4" /> Delete</>}
+                              </button>
+                            </div>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -446,7 +480,25 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
-      </div>
-    </div>
-  );
-}
+        </div>
+
+        <Dialog open={!!editingProduct} onOpenChange={(open) => !open && setEditingProduct(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Edit Product</DialogTitle>
+        </DialogHeader>
+        {editingProduct && (
+          <ProductForm
+            key={editingProduct.id}
+            product={editingProduct}
+            onUpdated={() => {
+              setEditingProduct(null);
+              loadData();
+            }}
+          />
+        )}
+        </DialogContent>
+        </Dialog>
+        </div>
+        );
+        }
