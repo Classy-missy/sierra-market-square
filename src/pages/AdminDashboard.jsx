@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import VendorForm from "@/components/admin/VendorForm";
 import ProductForm from "@/components/admin/ProductForm";
+import AdminManagement from "@/components/admin/AdminManagement";
 import { exportToCSV } from "@/lib/exportUtils";
-import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle, Trash2, Pencil } from "lucide-react";
+import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle, Trash2, Pencil, Shield } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAuth } from "@/lib/AuthContext";
 
@@ -74,6 +75,7 @@ export default function AdminDashboard() {
     { id: "customers", label: "Customers", icon: Users },
     { id: "mentors", label: "Mentors", icon: Heart },
     { id: "add", label: "Add New", icon: Plus },
+    { id: "admins", label: "Admins", icon: Shield },
   ];
 
   const exportConfigs = {
@@ -273,6 +275,8 @@ export default function AdminDashboard() {
               <ProductForm onCreated={loadData} />
             )}
           </div>
+        ) : tab === "admins" ? (
+          <AdminManagement users={users} onInvited={loadData} />
         ) : (
           <div>
             <div className="flex items-center justify-between mb-4">
