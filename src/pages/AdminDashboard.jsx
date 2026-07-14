@@ -4,7 +4,7 @@ import { base44 } from "@/api/base44Client";
 import VendorForm from "@/components/admin/VendorForm";
 import ProductForm from "@/components/admin/ProductForm";
 import { exportToCSV } from "@/lib/exportUtils";
-import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle } from "lucide-react";
+import { Store, Package, Users, Heart, LogOut, LayoutDashboard, Download, Plus, CheckCircle, XCircle, Trash2 } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 
 export default function AdminDashboard() {
@@ -16,6 +16,7 @@ export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [approving, setApproving] = useState(null);
+  const [deleting, setDeleting] = useState(null);
   const { user, logout } = useAuth();
 
   const loadData = async () => {
@@ -43,6 +44,20 @@ export default function AdminDashboard() {
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleDeleteVendor = async (vendor) => {
+    if (!window.confirm(`Delete vendor "${vendor.business_name}"? This cannot be undone.`)) return;
+    setDeleting(vendor.id);
+    try {
+      await base44.entities.Vendor.delete(vendor.id);
+      setVendors((prev) => prev.filter((v) => v.id !== vendor.id));
+    } catch (err) {
+      console.error("Delete vendor failed:", err);
+      alert("Failed to delete vendor. You may not have permission.");
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   const stats = [
     { label: "Total Vendors", value: loading ? "—" : vendors.length, icon: Store, color: "text-[#00A0E3]" },
@@ -260,6 +275,7 @@ export default function AdminDashboard() {
                         <th className="text-left px-4 py-3 font-medium">Owner</th>
                         <th className="text-left px-4 py-3 font-medium">Phone</th>
                         <th className="text-left px-4 py-3 font-medium">Email</th>
+                        <th className="text-left px-4 py-3 font-medium">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -276,6 +292,15 @@ export default function AdminDashboard() {
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.owner_name || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.phone || "—"}</td>
                           <td className="px-4 py-3 text-[#1A1612]/70">{v.email || "—"}</td>
+                          <td className="px-4 py-3">
+                            <button
+                              onClick={() => handleDeleteVendor(v)}
+                              disabled={deleting === v.id}
+                              className="flex items-center gap-1 text-sm font-medium text-red-500 hover:text-red-700 disabled:opacity-50"
+                            >
+                              {deleting === v.id ? "..." : <><Trash2 className="w-4 h-4" /> Delete</>}
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
