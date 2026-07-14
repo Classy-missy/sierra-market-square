@@ -16,17 +16,17 @@ export default function Navbar() {
   useEffect(() => {
     if (!isAuthenticated || !user?.id) return;
     Promise.all([
-      base44.entities.Vendor.filter({ created_by_id: user.id }).catch(() => []),
-      base44.entities.Mentor.filter({ created_by_id: user.id }).catch(() => []),
-    ]).then(([vendors, mentors]) => {
+    base44.entities.Vendor.filter({ created_by_id: user.id }).catch(() => []),
+    base44.entities.Mentor.filter({ created_by_id: user.id }).catch(() => [])]
+    ).then(([vendors, mentors]) => {
       // Match by email to find the user's personal profile (admins create seed
       // data under their own created_by_id, so created_by_id alone is unreliable).
       const myVendor = vendors.find((v) => v.email === user.email);
       const myMentor = mentors.find((m) => m.email === user.email);
-      if (myVendor) setDashboardPath("/vendor-dashboard");
-      else if (myMentor) setDashboardPath("/mentor-dashboard");
-      else if (isAdmin) setDashboardPath("/admin");
-      else setDashboardPath("/vendor-dashboard");
+      if (myVendor) setDashboardPath("/vendor-dashboard");else
+      if (myMentor) setDashboardPath("/mentor-dashboard");else
+      if (isAdmin) setDashboardPath("/admin");else
+      setDashboardPath("/vendor-dashboard");
     });
   }, [isAuthenticated, user]);
 
@@ -68,7 +68,7 @@ export default function Navbar() {
       {/* Main navbar */}
       <nav className="max-w-7xl mx-auto px-4 py-1.5 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-1">
-          <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Market</span>
+          <span className="font-heading text-2xl font-bold text-[#1A1612]">Sierra Leone Market</span>
           <span className="font-heading text-2xl font-bold text-[#00A0E3]">Square</span>
         </Link>
 
