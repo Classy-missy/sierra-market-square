@@ -35,9 +35,13 @@ export default function VendorDashboard() {
     if (!user?.id) return;
     base44.entities.Vendor.filter({ created_by_id: user.id })
       .then(async (vendors) => {
-        if (vendors.length > 0) {
-          setVendor(vendors[0]);
-          const prods = await base44.entities.Product.filter({ vendor_name: vendors[0].business_name });
+        // Prefer the vendor whose email matches the user's account email
+        // (their personal profile). Admins create seed data under their own
+        // created_by_id, so created_by_id alone would pick seed data.
+        const myVendor = vendors.find((v) => v.email === user.email) || vendors[0];
+        if (myVendor) {
+          setVendor(myVendor);
+          const prods = await base44.entities.Product.filter({ vendor_name: myVendor.business_name });
           setProducts(prods);
         }
       })

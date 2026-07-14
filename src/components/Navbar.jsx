@@ -19,9 +19,14 @@ export default function Navbar() {
       base44.entities.Vendor.filter({ created_by_id: user.id }).catch(() => []),
       base44.entities.Mentor.filter({ created_by_id: user.id }).catch(() => []),
     ]).then(([vendors, mentors]) => {
-      if (mentors.length > 0) setDashboardPath("/mentor-dashboard");
-      else if (vendors.length > 0) setDashboardPath("/vendor-dashboard");
-      else setDashboardPath(isAdmin ? "/admin" : "/vendor-dashboard");
+      // Match by email to find the user's personal profile (admins create seed
+      // data under their own created_by_id, so created_by_id alone is unreliable).
+      const myVendor = vendors.find((v) => v.email === user.email);
+      const myMentor = mentors.find((m) => m.email === user.email);
+      if (myVendor) setDashboardPath("/vendor-dashboard");
+      else if (myMentor) setDashboardPath("/mentor-dashboard");
+      else if (isAdmin) setDashboardPath("/admin");
+      else setDashboardPath("/vendor-dashboard");
     });
   }, [isAuthenticated, user]);
 
