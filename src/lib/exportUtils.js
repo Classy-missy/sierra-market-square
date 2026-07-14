@@ -4,7 +4,8 @@ export function exportToCSV(data, filename, columns) {
     columns
       .map((c) => {
         const val = typeof c.value === "function" ? c.value(row) : row[c.key];
-        const str = String(val ?? "").replace(/"/g, '""');
+        let str = String(val ?? "").replace(/"/g, '""');
+        if (/^[=+\-@\t\r]/.test(str)) str = "'" + str;
         return `"${str}"`;
       })
       .join(",")
