@@ -3,15 +3,32 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Shield, UserPlus, Loader2, CheckCircle, XCircle } from "lucide-react";
+import { Shield, UserPlus, Loader2, CheckCircle, XCircle, Trash2 } from "lucide-react";
 
-export default function AdminManagement({ users, onInvited }) {
+export default function AdminManagement({ users, onInvited, currentUser }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(null);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
 
   const admins = (users || []).filter((u) => u.role === "admin");
+
+  const handleDelete = async (admin) => {
+    if (!window.confirm(`Remove admin "${admin.email}" from the site? This cannot be undone.`)) return;
+    setDeleteError(null);
+    setDeleting(admin.id);
+    try {
+      await base44.entities.User.delete(admin.id);
+      if (onInvited) onInvited();
+    } catch (err) {
+      console.error("Delete admin failed:", err);
+      setDeleteError(err?.message || "Failed to delete admin. You may not have permission.");
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   const handleInvite = async (e) => {
     e.preventDefault();
