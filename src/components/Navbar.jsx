@@ -35,6 +35,7 @@ export default function Navbar() {
   { label: "Vendors", path: "/vendors" },
   { label: "Mentors", path: "/mentors" },
   { label: "Blog", path: "/blog" },
+  { label: "Vendor FAQ", path: "/vendor-faq" },
   { label: "About", path: "/about" }];
 
 

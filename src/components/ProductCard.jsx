@@ -25,6 +25,12 @@ export default function ProductCard({ product, disableNavigation }) {
       if (vendors.length > 0) {
         navigate(`/vendors/${vendors[0].id}`);
       }
+      // Track this product view for vendor analytics (fire-and-forget)
+      base44.entities.ProductView.create({
+        product_id: product.id,
+        product_name: product.name,
+        vendor_name: product.vendor_name,
+      }).catch(() => {});
     } catch (e) {
       console.error(e);
     } finally {

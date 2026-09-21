@@ -5,9 +5,10 @@ import { useAuth } from "@/lib/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Store, Package, Plus, Save, Loader2, LogOut, Pencil, Clock } from "lucide-react";
+import { Store, Package, Plus, Save, Loader2, LogOut, Pencil, Clock, BarChart3 } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/lib/constants";
 import VendorProfileEdit from "@/components/VendorProfileEdit";
+import VendorAnalytics from "@/components/VendorAnalytics";
 
 export default function VendorDashboard() {
   const { user, logout } = useAuth();
@@ -252,6 +253,15 @@ export default function VendorDashboard() {
             </div>
           </div>
         )}
+
+        {/* Analytics */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <BarChart3 className="w-5 h-5 text-[#00A0E3]" />
+            <h2 className="font-heading text-xl font-bold text-[#1A1612]">Analytics</h2>
+          </div>
+          <VendorAnalytics vendor={vendor} products={products} />
+        </div>
 
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">

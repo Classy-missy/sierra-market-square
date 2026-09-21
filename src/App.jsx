@@ -22,6 +22,7 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import About from "@/pages/About";
 import Blog from "@/pages/Blog";
+import VendorFAQ from "@/pages/VendorFAQ";
 import VendorDashboard from "@/pages/VendorDashboard";
 import MentorDashboard from "@/pages/MentorDashboard";
 
@@ -83,6 +84,7 @@ const AuthenticatedApp = () => {
         <Route path="/register-vendor" element={<RegisterVendor />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/vendor-faq" element={<VendorFAQ />} />
         <Route path="/vendor-dashboard" element={<VendorDashboard />} />
         <Route path="/mentor-dashboard" element={<MentorDashboard />} />
       </Route>

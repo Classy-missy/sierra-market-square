@@ -1,0 +1,36 @@
+{
+  "name": "ProductView",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "title": "Product ID"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    }
+  },
+  "required": [
+    "product_id",
+    "product_name"
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
